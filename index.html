@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AIDA · A.I. Deployment Apps — Sistemas de inteligencia artificial aplicada para empresas. Edge AI, IoT, automatización y visión por computadora. Ecuador.">
+<title>AIDA · A.I. Deployment Apps</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#0a0a0a;
+  --off-white:#f5f2ed;
+  --accent:#c8b89a;
+  --text-dim:#6b6560;
+  --border:rgba(200,184,154,0.1);
+  --mono:'Space Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--off-white);font-family:var(--sans);font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 4vw;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);}
+.nav-logo{font-family:var(--mono);font-size:1rem;letter-spacing:0.3em;color:var(--off-white);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
+.nav-links a:hover{color:var(--accent);}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--text-dim);margin:5px 0;}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,10,10,0.98);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:var(--mono);font-size:1.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;}
+.mobile-menu a:hover{color:var(--accent);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 4vw 5rem;overflow:hidden;position:relative;}
+.hero-bg{position:absolute;top:50%;left:-1rem;transform:translateY(-50%);font-family:var(--mono);font-size:clamp(6rem,20vw,16rem);font-weight:700;color:rgba(200,184,154,0.035);letter-spacing:-0.02em;user-select:none;pointer-events:none;white-space:nowrap;}
+.hero-tag{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:1.75rem;display:flex;align-items:center;gap:1rem;animation:fadeUp 0.6s ease both 0.1s;}
+.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--accent);}
+.hero-title{font-family:var(--mono);font-size:clamp(2.8rem,8vw,6.5rem);font-weight:700;line-height:0.95;letter-spacing:-0.03em;color:var(--off-white);margin-bottom:1.5rem;animation:fadeUp 0.6s ease both 0.2s;}
+.hero-title span{color:var(--accent);}
+.hero-sub{font-size:clamp(0.9rem,2vw,1.05rem);color:var(--text-dim);max-width:44ch;line-height:1.75;margin-bottom:3rem;animation:fadeUp 0.6s ease both 0.35s;}
+.hero-sub em{color:var(--accent);font-style:normal;}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.6s ease both 0.5s;}
+.btn-primary{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--accent);border:none;padding:0.9rem 2rem;cursor:pointer;transition:background 0.2s,transform 0.15s;text-decoration:none;display:inline-block;}
+.btn-primary:hover{background:var(--off-white);transform:translateY(-1px);}
+.btn-ghost{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid rgba(200,184,154,0.3);padding:0.9rem 2rem;cursor:pointer;transition:border-color 0.2s,color 0.2s;text-decoration:none;display:inline-block;}
+.btn-ghost:hover{border-color:var(--accent);color:var(--off-white);}
+
+/* SECTIONS */
+.sw{padding:6rem 4vw;border-top:1px solid var(--border);}
+.sl{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;}
+.st{font-family:var(--mono);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--off-white);line-height:1.1;margin-bottom:2.5rem;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.about-text{font-size:0.95rem;line-height:1.8;color:var(--text-dim);}
+.about-text+.about-text{margin-top:1rem;}
+.pillars{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.pillar{background:var(--black);padding:1.25rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.pillar-icon{font-family:var(--mono);font-size:0.6rem;color:var(--accent);letter-spacing:0.1em;min-width:2.5rem;padding-top:2px;}
+.pillar-text{font-size:0.85rem;color:var(--text-dim);line-height:1.6;}
+.pillar-text strong{color:var(--off-white);font-weight:400;display:block;margin-bottom:0.2rem;}
+
+/* SOLUCIONES */
+.solutions-intro{font-size:0.95rem;color:var(--text-dim);line-height:1.75;max-width:58ch;margin-bottom:3.5rem;}
+.sol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--border);}
+.sol-card{background:var(--black);padding:2rem 2rem 2.5rem;position:relative;overflow:hidden;transition:background 0.25s;}
+.sol-card:hover{background:#0f0f0f;}
+.sol-num{font-family:var(--mono);font-size:0.58rem;color:rgba(200,184,154,0.28);letter-spacing:0.2em;margin-bottom:1.25rem;}
+.sol-name{font-family:var(--mono);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--off-white);letter-spacing:-0.02em;margin-bottom:0.2rem;}
+.sol-full{font-family:var(--mono);font-size:0.57rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;line-height:1.6;}
+.sol-desc{font-size:0.85rem;color:var(--text-dim);line-height:1.75;}
+.sol-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.25rem;}
+.tag{font-family:var(--mono);font-size:0.52rem;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(200,184,154,0.13);color:rgba(200,184,154,0.45);padding:0.28rem 0.55rem;}
+.sol-corner{position:absolute;bottom:0.75rem;right:1.25rem;font-family:var(--mono);font-size:4rem;font-weight:700;color:rgba(200,184,154,0.04);pointer-events:none;line-height:1;}
+
+/* POR QUÉ AIDA */
+.why-bg{background:rgba(200,184,154,0.02);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.diff-quote{font-family:var(--mono);font-size:clamp(1rem,2.5vw,1.5rem);font-weight:700;color:var(--off-white);line-height:1.4;border-left:2px solid var(--accent);padding-left:1.5rem;margin-bottom:2rem;}
+.diff-text{font-size:0.92rem;color:var(--text-dim);line-height:1.8;}
+.diff-points{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.diff-point{background:rgba(200,184,154,0.02);padding:1.1rem 1.5rem;display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;}
+.diff-check{font-family:var(--mono);font-size:0.7rem;color:var(--accent);padding-top:1px;}
+.diff-pt{font-size:0.87rem;color:var(--text-dim);line-height:1.6;}
+.diff-pt strong{color:var(--off-white);font-weight:400;display:block;margin-bottom:0.2rem;}
+
+/* CONTACTO */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.contact-sub{font-size:0.92rem;color:var(--text-dim);line-height:1.75;max-width:38ch;margin-bottom:2rem;}
+.contact-links{display:flex;flex-direction:column;}
+.contact-link{display:flex;align-items:center;gap:1rem;text-decoration:none;color:var(--text-dim);font-size:0.87rem;transition:color 0.2s;padding:0.85rem 0;border-bottom:1px solid var(--border);}
+.contact-link:hover{color:var(--accent);}
+.clink-label{font-family:var(--mono);font-size:0.58rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;min-width:3rem;}
+.form-area{display:flex;flex-direction:column;gap:1.1rem;}
+.form-field{display:flex;flex-direction:column;gap:0.45rem;}
+.form-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);}
+.form-input{background:transparent;border:1px solid rgba(200,184,154,0.15);color:var(--off-white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.88rem;outline:none;transition:border-color 0.2s;font-weight:300;width:100%;}
+.form-input:focus{border-color:var(--accent);}
+.form-input::placeholder{color:#2a2724;}
+textarea.form-input{resize:vertical;min-height:7rem;}
+.form-note{font-family:var(--mono);font-size:0.6rem;color:var(--text-dim);opacity:0.6;margin-top:0.25rem;}
+
+/* FOOTER */
+footer{padding:2rem 4vw;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.25em;color:var(--text-dim);}
+.footer-copy{font-size:0.68rem;color:rgba(107,101,96,0.45);font-family:var(--mono);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:block;}
+  .about-grid,.why-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .sw{padding:4.5rem 5vw;}
+  .hero{padding:7rem 5vw 4rem;}
+  footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">AIDA</div>
+  <ul class="nav-links">
+    <li><a href="#about">Nosotros</a></li>
+    <li><a href="#solutions">Soluciones</a></li>
+    <li><a href="#why">Por qué AIDA</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">Nosotros</a>
+  <a href="#solutions">Soluciones</a>
+  <a href="#why">Por qué AIDA</a>
+  <a href="#contact">Contacto</a>
+</div>
+
+<section class="hero" id="hero">
+  <div class="hero-bg">AIDA</div>
+  <div class="hero-tag">A.I. Deployment Apps · Ecuador</div>
+  <h1 class="hero-title">Your AIoT<br><span>Workforce.</span></h1>
+  <p class="hero-sub">
+    Sistemas inteligentes que <em>trabajan por ti</em> — en tu infraestructura,
+    bajo tu control, sin depender de nubes ajenas.<br>
+    IA que vive en el mundo físico.
+  </p>
+  <div class="cta-row">
+    <a href="#contact" class="btn-primary">Conversemos</a>
+    <a href="#solutions" class="btn-ghost">Ver soluciones</a>
+  </div>
+</section>
+
+<section class="sw" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="sl">Quiénes somos</div>
+      <h2 class="st">The soul<br>of things.</h2>
+      <p class="about-text">AIDA es una empresa que diseña, desarrolla y despliega sistemas de inteligencia artificial aplicada. No vendemos IA como concepto — construimos soluciones que hacen trabajo real, integradas al mundo físico de tu operación.</p>
+      <p class="about-text">Nuestros productos nacieron de una convicción: la IA más poderosa no vive en la nube, vive en el lugar donde ocurren las cosas.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-icon">01</span>
+        <div class="pillar-text"><strong>Empresa ecuatoriana</strong>Fundada en Ecuador, operamos en el contexto local con tecnología de punta. Soporte en tu idioma, en tu zona horaria.</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">02</span>
+        <div class="pillar-text"><strong>AIoT · IA en el mundo físico</strong>Integramos inteligencia artificial con sensores, actuadores y sistemas reales. No automatizamos pantallas — automatizamos procesos.</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">03</span>
+        <div class="pillar-text"><strong>Edge AI nativa</strong>Diseñamos para correr localmente desde el primer día. Velocidad máxima, privacidad total, sin dependencias externas.</div>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon">04</span>
+        <div class="pillar-text"><strong>Soluciones propias</strong>LIDIA, Gepetto, Lucero y Visión Industrial son productos desarrollados por AIDA — no revendemos software ajeno.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sw" id="solutions" style="background:rgba(200,184,154,0.015);">
+  <div class="sl">Soluciones</div>
+  <h2 class="st">Sistemas que ya<br>están vivos.</h2>
+  <p class="solutions-intro">Cada solución es un catálogo de capacidades que configuramos a la medida de tu operación. No comprás una caja cerrada — construimos exactamente lo que necesitás, en tu espacio, con tus procesos.</p>
+
+  <div class="sol-grid">
+
+    <div class="sol-card">
+      <div class="sol-num">001</div>
+      <div class="sol-name">LIDIA</div>
+      <div class="sol-full">Local Intelligent Detection & Insights Assistant</div>
+      <p class="sol-desc">Sistema de vigilancia autónoma que hace el trabajo de un equipo de monitoreo completo. Detecta, disuade, comunica y registra — sin intervención humana. Configurable por cámara y por necesidad, con un catálogo de capacidades que se activan a medida.</p>
+      <div class="sol-tags">
+        <span class="tag">Detección de armas</span>
+        <span class="tag">Manos arriba · pánico</span>
+        <span class="tag">Reconocimiento facial</span>
+        <span class="tag">Placas vehiculares</span>
+        <span class="tag">Detección de fuego</span>
+        <span class="tag">Control de acceso</span>
+        <span class="tag">Domótica integrada</span>
+        <span class="tag">EPP / seguridad laboral</span>
+        <span class="tag">Distracciones al volante</span>
+        <span class="tag">Velocidad vehicular</span>
+        <span class="tag">Extracción de documentos</span>
+        <span class="tag">Entrenamiento personalizado</span>
+        <span class="tag">IA conversacional del video</span>
+      </div>
+      <div class="sol-corner">L</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="sol-num">002</div>
+      <div class="sol-name">Gepetto</div>
+      <div class="sol-full">AIoT · Darle vida a las cosas</div>
+      <p class="sol-desc">Conectamos sensores, actuadores y el mundo físico con un agente IA que interpreta, decide y actúa — en distancias cortas (WiFi/Bluetooth), medias (Zigbee) y largas (LoRa, sin costo de datos). Optimización inteligente de recursos, flujos industriales y logística de campo, todo bajo Edge AI local.</p>
+      <div class="sol-tags">
+        <span class="tag">Nivel de combustible</span>
+        <span class="tag">Cisternas y bombas</span>
+        <span class="tag">GPS + RTK sin cellular</span>
+        <span class="tag">Montacargas y logística</span>
+        <span class="tag">Riego inteligente</span>
+        <span class="tag">Gestión de energía</span>
+        <span class="tag">Sensores de presión</span>
+        <span class="tag">Temperatura · humedad</span>
+        <span class="tag">Alertas y notificaciones</span>
+        <span class="tag">Decisiones autónomas</span>
+        <span class="tag">LoRa · sin costo de datos</span>
+        <span class="tag">Respaldo energético</span>
+      </div>
+      <div class="sol-corner">G</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="sol-num">003</div>
+      <div class="sol-name">Lucero</div>
+      <div class="sol-full">Local AI for Administrative Automation</div>
+      <p class="sol-desc">IA local que automatiza el trabajo administrativo repetitivo — lectura de correos, clasificación de documentos, llenado de formularios, extracción de datos y flujos de aprobación. Velocidad inmediata y privacidad absoluta.</p>
+      <div class="sol-tags">
+        <span class="tag">Lectura de correos</span>
+        <span class="tag">Archivo inteligente</span>
+        <span class="tag">Llenado de formularios</span>
+        <span class="tag">Extracción de datos</span>
+        <span class="tag">Procesamiento de facturas</span>
+        <span class="tag">Flujos de aprobación</span>
+        <span class="tag">Contratos y documentos legales</span>
+        <span class="tag">Reportes automáticos</span>
+      </div>
+      <div class="sol-corner">Lu</div>
+    </div>
+
+    <div class="sol-card">
+      <div class="sol-num">004</div>
+      <div class="sol-name">Visión Industrial</div>
+      <div class="sol-full">Computer Vision for Production Lines</div>
+      <p class="sol-desc">Conteo, inspección y control de calidad en tiempo real para líneas de producción. Visión por computadora entrenada para tu proceso, corriendo localmente sin latencia ni dependencias externas.</p>
+      <div class="sol-tags">
+        <span class="tag">Conteo automatizado</span>
+        <span class="tag">Control de calidad</span>
+        <span class="tag">Detección de defectos</span>
+        <span class="tag">Reportes en tiempo real</span>
+        <span class="tag">Entrenamiento personalizado</span>
+      </div>
+      <div class="sol-corner">V</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="sw why-bg" id="why">
+  <div class="why-grid">
+    <div>
+      <div class="sl">Por qué AIDA</div>
+      <div class="diff-quote">"Tu operación no debería depender de la nube de otro, ni detenerse cuando se va la luz."</div>
+      <p class="diff-text">El modelo estándar de la industria te pide una inversión fuerte en equipos, licencias y nubes ajenas — y luego procesa tu información en servidores que no controlas. Nosotros invertimos nosotros, operamos nosotros, y tú simplemente empiezas a ahorrar desde el primer día.</p>
+    </div>
+    <div class="diff-points">
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Cero inversión de tu parte</strong>AIDA importa, instala y configura todo. Tú no desembolsas en equipos, software ni implementación.</div>
+      </div>
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Un costo mensual bajo y predecible</strong>Sin sorpresas. Sin licencias adicionales. Sin pagar por procesar tu propia información en servidores ajenos.</div>
+      </div>
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Tu información permanece tuya</strong>Edge AI 100% local. Ningún dato sale a servidores de terceros. Tu operación queda bajo tu control total.</div>
+      </div>
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Máxima velocidad · sin latencia</strong>Al procesar localmente, la respuesta es inmediata. Sin esperar servidores remotos ni depender de la velocidad del internet.</div>
+      </div>
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Opera sin internet</strong>Corte de fibra, falla del router, zona sin cobertura — tus sistemas siguen funcionando sin interrupciones.</div>
+      </div>
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Opera sin electricidad</strong>Respaldo energético incluido. Un corte de luz no detiene tu operación.</div>
+      </div>
+      <div class="diff-point">
+        <span class="diff-check">→</span>
+        <div class="diff-pt"><strong>Equipos, garantía y mantenimiento incluidos</strong>La vida útil del hardware, las actualizaciones y el soporte técnico son responsabilidad de AIDA.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sw" id="contact">
+  <div class="contact-grid">
+    <div>
+      <div class="sl">Contacto</div>
+      <h2 class="st">Hablemos de<br>tu proyecto.</h2>
+      <p class="contact-sub">Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver.</p>
+      <div class="contact-links">
+        <a href="mailto:mario@aida-ec.com" class="contact-link">
+          <span class="clink-label">Mail</span>mario@aida-ec.com
+        </a>
+        <a href="https://wa.me/593987234527" target="_blank" rel="noopener" class="contact-link">
+          <span class="clink-label">WA</span>+593 98 723 4527
+        </a>
+        <a href="#" class="contact-link">
+          <span class="clink-label">País</span>Ecuador · Quito
+        </a>
+      </div>
+    </div>
+    <div class="form-area">
+      <div class="form-field">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-input" placeholder="Tu nombre o empresa" name="name">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Correo</label>
+        <input type="email" class="form-input" placeholder="tu@correo.com" name="email">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Mensaje</label>
+        <textarea class="form-input" placeholder="¿Qué proceso te gustaría automatizar?" name="message"></textarea>
+      </div>
+      <button class="btn-primary" id="submitBtn" style="align-self:flex-start;margin-top:0.25rem;">Enviar mensaje</button>
+      <p class="form-note" id="formNote" style="display:none;"></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">AIDA · A.I. Deployment Apps</div>
+  <div class="footer-copy">© 2025 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+</footer>
+
+<script>
+/* Mobile menu */
+const ham = document.getElementById('hamburger');
+const menu = document.getElementById('mobileMenu');
+ham.addEventListener('click', () => menu.classList.toggle('open'));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+/* Smooth scroll */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* Contact form — redirige a WhatsApp con el mensaje pre-armado */
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const name = document.querySelector('[name="name"]').value.trim();
+  const email = document.querySelector('[name="email"]').value.trim();
+  const message = document.querySelector('[name="message"]').value.trim();
+  const note = document.getElementById('formNote');
+
+  if (!name || !email || !message) {
+    note.textContent = 'Por favor completa todos los campos.';
+    note.style.display = 'block';
+    note.style.color = '#c8b89a';
+    return;
+  }
+
+  const text = encodeURIComponent(`Hola AIDA, mi nombre es ${name} (${email}).\n\n${message}`);
+  window.open(`https://wa.me/593987234527?text=${text}`, '_blank');
+  note.textContent = 'Abriendo WhatsApp...';
+  note.style.display = 'block';
+  note.style.color = '#6b6560';
+});
+</script>
+</body>
+</html>
