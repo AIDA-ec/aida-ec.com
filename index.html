@@ -23,15 +23,25 @@ body{background:var(--black);color:var(--off-white);font-family:var(--sans);font
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.25rem 4vw;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);}
 .nav-logo{font-family:var(--mono);font-size:1rem;letter-spacing:0.3em;color:var(--off-white);}
-.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
 .nav-links a{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover{color:var(--accent);}
+
+/* LANG TOGGLE */
+.lang-toggle{display:flex;gap:0;border:1px solid rgba(200,184,154,0.25);overflow:hidden;}
+.lang-btn{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;padding:0.3rem 0.6rem;background:transparent;color:var(--text-dim);border:none;cursor:pointer;transition:background 0.15s,color 0.15s;}
+.lang-btn.active{background:var(--accent);color:var(--black);}
+.lang-btn:hover:not(.active){color:var(--accent);}
+
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;}
 .hamburger span{display:block;width:22px;height:1.5px;background:var(--text-dim);margin:5px 0;}
 .mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,10,10,0.98);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;}
 .mobile-menu.open{display:flex;}
 .mobile-menu a{font-family:var(--mono);font-size:1.4rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;}
 .mobile-menu a:hover{color:var(--accent);}
+.mobile-lang{display:flex;gap:1.5rem;margin-top:1rem;}
+.mobile-lang button{font-family:var(--mono);font-size:1rem;letter-spacing:0.15em;background:none;border:none;color:var(--text-dim);cursor:pointer;}
+.mobile-lang button.active{color:var(--accent);}
 
 /* HERO */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 4vw 5rem;overflow:hidden;position:relative;}
@@ -68,10 +78,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .sol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1px;background:var(--border);}
 .sol-card{background:var(--black);padding:2rem 2rem 2.5rem;position:relative;overflow:hidden;transition:background 0.25s;}
 .sol-card:hover{background:#0f0f0f;}
-.sol-num{font-family:var(--mono);font-size:0.58rem;color:rgba(200,184,154,0.28);letter-spacing:0.2em;margin-bottom:1.25rem;}
-.sol-name{font-family:var(--mono);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--off-white);letter-spacing:-0.02em;margin-bottom:0.2rem;}
-.sol-full{font-family:var(--mono);font-size:0.57rem;color:var(--text-dim);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;line-height:1.6;}
+.sol-num{font-family:var(--mono);font-size:0.58rem;color:rgba(200,184,154,0.28);letter-spacing:0.2em;margin-bottom:1rem;}
+/* Title = category (big), subtitle = product name (small accent) */
+.sol-title{font-family:var(--mono);font-size:clamp(1.1rem,2vw,1.4rem);font-weight:700;color:var(--off-white);letter-spacing:-0.01em;margin-bottom:0.3rem;line-height:1.15;}
+.sol-name{font-family:var(--mono);font-size:0.62rem;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.25rem;font-style:italic;}
+.sol-full{font-family:var(--mono);font-size:0.54rem;color:var(--text-dim);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1rem;line-height:1.6;}
 .sol-desc{font-size:0.85rem;color:var(--text-dim);line-height:1.75;}
+/* Optional image slot */
+.sol-img{width:100%;aspect-ratio:16/7;object-fit:cover;margin-bottom:1rem;opacity:0.85;display:block;}
+.sol-img-placeholder{display:none;} /* hidden until image added */
 .sol-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.25rem;}
 .tag{font-family:var(--mono);font-size:0.52rem;letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(200,184,154,0.13);color:rgba(200,184,154,0.45);padding:0.28rem 0.55rem;}
 .sol-corner{position:absolute;bottom:0.75rem;right:1.25rem;font-family:var(--mono);font-size:4rem;font-weight:700;color:rgba(200,184,154,0.04);pointer-events:none;line-height:1;}
@@ -126,10 +141,16 @@ footer{padding:2rem 4vw;border-top:1px solid var(--border);display:flex;justify-
 <nav>
   <div class="nav-logo">AIDA</div>
   <ul class="nav-links">
-    <li><a href="#about">Nosotros</a></li>
-    <li><a href="#solutions">Soluciones</a></li>
-    <li><a href="#why">Por qué AIDA</a></li>
-    <li><a href="#contact">Contacto</a></li>
+    <li><a href="#about" data-i18n="nav.about">Nosotros</a></li>
+    <li><a href="#solutions" data-i18n="nav.solutions">Soluciones</a></li>
+    <li><a href="#why" data-i18n="nav.why">Por qué AIDA</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contacto</a></li>
+    <li>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menú">
     <span></span><span></span><span></span>
@@ -137,137 +158,158 @@ footer{padding:2rem 4vw;border-top:1px solid var(--border);display:flex;justify-
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#about">Nosotros</a>
-  <a href="#solutions">Soluciones</a>
-  <a href="#why">Por qué AIDA</a>
-  <a href="#contact">Contacto</a>
+  <a href="#about" data-i18n="nav.about">Nosotros</a>
+  <a href="#solutions" data-i18n="nav.solutions">Soluciones</a>
+  <a href="#why" data-i18n="nav.why">Por qué AIDA</a>
+  <a href="#contact" data-i18n="nav.contact">Contacto</a>
+  <div class="mobile-lang">
+    <button class="active" onclick="setLang('es')">ES</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
 </div>
 
+<!-- ═══════════════════════════════════════════ HERO -->
 <section class="hero" id="hero">
   <div class="hero-bg">AIDA</div>
   <div class="hero-tag">A.I. Deployment Apps · Ecuador</div>
   <h1 class="hero-title">Your AIoT<br><span>Workforce.</span></h1>
-  <p class="hero-sub">
+  <p class="hero-sub" data-i18n="hero.sub">
     Sistemas inteligentes que <em>trabajan por ti</em> — en tu infraestructura,
     bajo tu control, sin depender de nubes ajenas.<br>
     IA que vive en el mundo físico.
   </p>
   <div class="cta-row">
-    <a href="#contact" class="btn-primary">Conversemos</a>
-    <a href="#solutions" class="btn-ghost">Ver soluciones</a>
+    <a href="#contact" class="btn-primary" data-i18n="hero.cta1">Conversemos</a>
+    <a href="#solutions" class="btn-ghost" data-i18n="hero.cta2">Ver soluciones</a>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════ NOSOTROS -->
 <section class="sw" id="about">
   <div class="about-grid">
     <div>
-      <div class="sl">Quiénes somos</div>
+      <div class="sl" data-i18n="about.label">Quiénes somos</div>
       <h2 class="st">The soul<br>of things.</h2>
-      <p class="about-text">AIDA es una empresa que diseña, desarrolla y despliega sistemas de inteligencia artificial aplicada. No vendemos IA como concepto — construimos soluciones que hacen trabajo real, integradas al mundo físico de tu operación.</p>
-      <p class="about-text">Nuestros productos nacieron de una convicción: la IA más poderosa no vive en la nube, vive en el lugar donde ocurren las cosas.</p>
+      <p class="about-text" data-i18n="about.p1">AIDA es una empresa que diseña, desarrolla y despliega sistemas de inteligencia artificial aplicada. No vendemos IA como concepto — construimos soluciones que hacen trabajo real, integradas al mundo físico de tu operación.</p>
+      <p class="about-text" data-i18n="about.p2">Nuestros productos nacieron de una convicción: la IA más poderosa no vive en la nube, vive en el lugar donde ocurren las cosas.</p>
     </div>
     <div class="pillars">
       <div class="pillar">
         <span class="pillar-icon">01</span>
-        <div class="pillar-text"><strong>Empresa ecuatoriana</strong>Fundada en Ecuador, operamos en el contexto local con tecnología de punta. Soporte en tu idioma, en tu zona horaria.</div>
+        <div class="pillar-text"><strong data-i18n="about.p1t">Empresa ecuatoriana</strong><span data-i18n="about.p1d">Fundada en Ecuador, operamos en el contexto local con tecnología de punta. Soporte en tu idioma, en tu zona horaria.</span></div>
       </div>
       <div class="pillar">
         <span class="pillar-icon">02</span>
-        <div class="pillar-text"><strong>AIoT · IA en el mundo físico</strong>Integramos inteligencia artificial con sensores, actuadores y sistemas reales. No automatizamos pantallas — automatizamos procesos.</div>
+        <div class="pillar-text"><strong data-i18n="about.p2t">Soberanía Tecnológica</strong><span data-i18n="about.p2d">Control total de la información y los alcances de la solución, con la flexibilidad de adaptarse a cambios en el tiempo a un bajo costo.</span></div>
       </div>
       <div class="pillar">
         <span class="pillar-icon">03</span>
-        <div class="pillar-text"><strong>Edge AI nativa</strong>Diseñamos para correr localmente desde el primer día. Velocidad máxima, privacidad total, sin dependencias externas.</div>
+        <div class="pillar-text"><strong data-i18n="about.p3t">Edge AI nativa</strong><span data-i18n="about.p3d">Diseñamos para correr localmente desde el primer día. Velocidad máxima, privacidad total, sin dependencias externas.</span></div>
       </div>
       <div class="pillar">
         <span class="pillar-icon">04</span>
-        <div class="pillar-text"><strong>Soluciones propias</strong>LIDIA, Gepetto, Lucero y Visión Industrial son productos desarrollados por AIDA — no revendemos software ajeno.</div>
+        <div class="pillar-text"><strong data-i18n="about.p4t">Soluciones propias</strong><span data-i18n="about.p4d">LIDIA, Gepetto, Lucero y Visión Industrial son productos desarrollados por AIDA — no revendemos software ajeno.</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════ SOLUCIONES -->
 <section class="sw" id="solutions" style="background:rgba(200,184,154,0.015);">
-  <div class="sl">Soluciones</div>
-  <h2 class="st">Sistemas que ya<br>están vivos.</h2>
-  <p class="solutions-intro">Cada solución es un catálogo de capacidades que configuramos a la medida de tu operación. No comprás una caja cerrada — construimos exactamente lo que necesitás, en tu espacio, con tus procesos.</p>
+  <div class="sl" data-i18n="sol.label">Soluciones</div>
+  <h2 class="st" data-i18n="sol.title">Sistemas que ya<br>están vivos.</h2>
+  <p class="solutions-intro" data-i18n="sol.intro">Cada solución es un catálogo de capacidades que configuramos a la medida de tu operación. No comprás una caja cerrada — construimos exactamente lo que necesitás, en tu espacio, con tus procesos.</p>
 
   <div class="sol-grid">
 
+    <!-- 001 VISIÓN POR COMPUTADORA / LIDIA -->
     <div class="sol-card">
       <div class="sol-num">001</div>
+      <div class="sol-title" data-i18n="sol1.title">Visión por Computadora</div>
       <div class="sol-name">LIDIA</div>
-      <div class="sol-full">Local Intelligent Detection & Insights Assistant</div>
-      <p class="sol-desc">Sistema de vigilancia autónoma que hace el trabajo de un equipo de monitoreo completo. Detecta, disuade, comunica y registra — sin intervención humana. Configurable por cámara y por necesidad, con un catálogo de capacidades que se activan a medida.</p>
+      <div class="sol-full">Local Intelligent Detection &amp; Insights Assistant</div>
+      <img class="sol-img" src="img/lidia.png" alt="LIDIA - Computer Vision">
+      <p class="sol-desc" data-i18n="sol1.desc">Sistema de vigilancia autónoma que reemplaza al equipo de monitoreo. Detecta, disuade, comunica y registra — sin intervención humana. Configurable por cámara y necesidad, con un catálogo de capacidades que se activan a medida.</p>
       <div class="sol-tags">
-        <span class="tag">Detección de armas</span>
-        <span class="tag">Manos arriba · pánico</span>
-        <span class="tag">Reconocimiento facial</span>
-        <span class="tag">Placas vehiculares</span>
-        <span class="tag">Detección de fuego</span>
-        <span class="tag">Control de acceso</span>
-        <span class="tag">Domótica integrada</span>
-        <span class="tag">EPP / seguridad laboral</span>
-        <span class="tag">Distracciones al volante</span>
-        <span class="tag">Velocidad vehicular</span>
-        <span class="tag">Extracción de documentos</span>
-        <span class="tag">Entrenamiento personalizado</span>
-        <span class="tag">IA conversacional del video</span>
+        <span class="tag" data-i18n="sol1.t1">Detección de armas</span>
+        <span class="tag" data-i18n="sol1.t2">Manos arriba · pánico</span>
+        <span class="tag" data-i18n="sol1.t3">Reconocimiento facial</span>
+        <span class="tag" data-i18n="sol1.t4">Placas vehiculares</span>
+        <span class="tag" data-i18n="sol1.t5">Detección de fuego</span>
+        <span class="tag" data-i18n="sol1.t6">Control de acceso</span>
+        <span class="tag" data-i18n="sol1.t7">Domótica integrada</span>
+        <span class="tag" data-i18n="sol1.t8">EPP / seguridad laboral</span>
+        <span class="tag" data-i18n="sol1.t9">Distracciones al volante</span>
+        <span class="tag" data-i18n="sol1.t10">Velocidad vehicular</span>
+        <span class="tag" data-i18n="sol1.t11">Extracción de documentos</span>
+        <span class="tag" data-i18n="sol1.t12">Entrenamiento personalizado</span>
+        <span class="tag" data-i18n="sol1.t13">IA conversacional del video</span>
       </div>
       <div class="sol-corner">L</div>
     </div>
 
+    <!-- 002 AUTOMATIZACIÓN AIoT / GEPETTO -->
     <div class="sol-card">
       <div class="sol-num">002</div>
+      <div class="sol-title" data-i18n="sol2.title">Automatización AIoT</div>
       <div class="sol-name">Gepetto</div>
-      <div class="sol-full">AIoT · Darle vida a las cosas</div>
-      <p class="sol-desc">Conectamos sensores, actuadores y el mundo físico con un agente IA que interpreta, decide y actúa — en distancias cortas (WiFi/Bluetooth), medias (Zigbee) y largas (LoRa, sin costo de datos). Optimización inteligente de recursos, flujos industriales y logística de campo, todo bajo Edge AI local.</p>
+      <div class="sol-full">Artificial Intelligence of Things</div>
+      <img class="sol-img" src="img/gepetto.png" alt="Gepetto - AIoT">
+      <p class="sol-desc" data-i18n="sol2.desc">Conectamos sensores, actuadores y el mundo físico con un agente IA que interpreta, decide y actúa — en distancias cortas (WiFi/Bluetooth), medias (Zigbee) y largas (LoRa, sin costo de datos celulares). Optimización inteligente de recursos, flujos industriales y logística de campo, todo bajo Edge AI local.</p>
       <div class="sol-tags">
-        <span class="tag">Nivel de combustible</span>
-        <span class="tag">Cisternas y bombas</span>
-        <span class="tag">GPS + RTK sin cellular</span>
-        <span class="tag">Montacargas y logística</span>
-        <span class="tag">Riego inteligente</span>
-        <span class="tag">Gestión de energía</span>
-        <span class="tag">Sensores de presión</span>
-        <span class="tag">Temperatura · humedad</span>
-        <span class="tag">Alertas y notificaciones</span>
-        <span class="tag">Decisiones autónomas</span>
-        <span class="tag">LoRa · sin costo de datos</span>
-        <span class="tag">Respaldo energético</span>
+        <span class="tag" data-i18n="sol2.t1">Nivel de combustible</span>
+        <span class="tag" data-i18n="sol2.t2">Cisternas y bombas</span>
+        <span class="tag" data-i18n="sol2.t3">GPS + RTK sin cellular</span>
+        <span class="tag" data-i18n="sol2.t4">Montacargas y logística</span>
+        <span class="tag" data-i18n="sol2.t5">Riego inteligente</span>
+        <span class="tag" data-i18n="sol2.t6">Gestión de energía</span>
+        <span class="tag" data-i18n="sol2.t7">Sensores de presión</span>
+        <span class="tag" data-i18n="sol2.t8">Temperatura · humedad</span>
+        <span class="tag" data-i18n="sol2.t9">Alertas y notificaciones</span>
+        <span class="tag" data-i18n="sol2.t10">Decisiones autónomas</span>
+        <span class="tag" data-i18n="sol2.t11">LoRa · sin costo de datos</span>
+        <span class="tag" data-i18n="sol2.t12">Respaldo energético</span>
       </div>
       <div class="sol-corner">G</div>
     </div>
 
+    <!-- 003 RPA / LUCERO -->
     <div class="sol-card">
       <div class="sol-num">003</div>
+      <div class="sol-title" data-i18n="sol3.title">RPA — Robotic Process Automation</div>
       <div class="sol-name">Lucero</div>
       <div class="sol-full">Local AI for Administrative Automation</div>
-      <p class="sol-desc">IA local que automatiza el trabajo administrativo repetitivo — lectura de correos, clasificación de documentos, llenado de formularios, extracción de datos y flujos de aprobación. Velocidad inmediata y privacidad absoluta.</p>
+      <!-- IMAGE SLOT: uncomment when image available
+      <img class="sol-img" src="img/lucero.jpg" alt="Lucero - RPA">
+      -->
+      <p class="sol-desc" data-i18n="sol3.desc">IA local que automatiza el trabajo administrativo repetitivo — lectura de correos, clasificación de documentos, llenado de formularios, extracción de datos y flujos de aprobación. Velocidad máxima y la más alta configuración de seguridad de la información: todo procesado en tu infraestructura, sin enviar datos a ninguna nube externa.</p>
       <div class="sol-tags">
-        <span class="tag">Lectura de correos</span>
-        <span class="tag">Archivo inteligente</span>
-        <span class="tag">Llenado de formularios</span>
-        <span class="tag">Extracción de datos</span>
-        <span class="tag">Procesamiento de facturas</span>
-        <span class="tag">Flujos de aprobación</span>
-        <span class="tag">Contratos y documentos legales</span>
-        <span class="tag">Reportes automáticos</span>
+        <span class="tag" data-i18n="sol3.t1">Lectura de correos</span>
+        <span class="tag" data-i18n="sol3.t2">Archivo inteligente</span>
+        <span class="tag" data-i18n="sol3.t3">Llenado de formularios</span>
+        <span class="tag" data-i18n="sol3.t4">Extracción de datos</span>
+        <span class="tag" data-i18n="sol3.t5">Procesamiento de facturas</span>
+        <span class="tag" data-i18n="sol3.t6">Flujos de aprobación</span>
+        <span class="tag" data-i18n="sol3.t7">Contratos y documentos</span>
+        <span class="tag" data-i18n="sol3.t8">Reportes automáticos</span>
       </div>
       <div class="sol-corner">Lu</div>
     </div>
 
+    <!-- 004 VISIÓN INDUSTRIAL -->
     <div class="sol-card">
       <div class="sol-num">004</div>
-      <div class="sol-name">Visión Industrial</div>
-      <div class="sol-full">Computer Vision for Production Lines</div>
-      <p class="sol-desc">Conteo, inspección y control de calidad en tiempo real para líneas de producción. Visión por computadora entrenada para tu proceso, corriendo localmente sin latencia ni dependencias externas.</p>
+      <div class="sol-title" data-i18n="sol4.title">Visión Industrial</div>
+      <div class="sol-name" style="visibility:hidden;font-size:0;">·</div>
+      <div class="sol-full" data-i18n="sol4.full">Soluciones Industriales a la Medida</div>
+      <img class="sol-img" src="img/vision-industrial.png" alt="Visión Industrial">
+      <p class="sol-desc" data-i18n="sol4.desc">Conteo, inspección y control de calidad en tiempo real para líneas de producción. Visión por computadora entrenada para tu proceso, corriendo localmente sin latencia ni dependencias externas.</p>
       <div class="sol-tags">
-        <span class="tag">Conteo automatizado</span>
-        <span class="tag">Control de calidad</span>
-        <span class="tag">Detección de defectos</span>
-        <span class="tag">Reportes en tiempo real</span>
-        <span class="tag">Entrenamiento personalizado</span>
+        <span class="tag" data-i18n="sol4.t1">Conteo automatizado</span>
+        <span class="tag" data-i18n="sol4.t2">Control de calidad</span>
+        <span class="tag" data-i18n="sol4.t3">Detección de defectos</span>
+        <span class="tag" data-i18n="sol4.t4">Reportes en tiempo real</span>
+        <span class="tag" data-i18n="sol4.t5">Entrenamiento personalizado</span>
       </div>
       <div class="sol-corner">V</div>
     </div>
@@ -275,78 +317,53 @@ footer{padding:2rem 4vw;border-top:1px solid var(--border);display:flex;justify-
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════ POR QUÉ AIDA -->
 <section class="sw why-bg" id="why">
   <div class="why-grid">
     <div>
-      <div class="sl">Por qué AIDA</div>
-      <div class="diff-quote">"Tu operación no debería depender de la nube de otro, ni detenerse cuando se va la luz."</div>
-      <p class="diff-text">El modelo estándar de la industria te pide una inversión fuerte en equipos, licencias y nubes ajenas — y luego procesa tu información en servidores que no controlas. Nosotros invertimos nosotros, operamos nosotros, y tú simplemente empiezas a ahorrar desde el primer día.</p>
+      <div class="sl" data-i18n="why.label">Por qué AIDA</div>
+      <div class="diff-quote" data-i18n="why.quote">"Tu operación no debería depender de la nube de otro, ni detenerse cuando se va la luz."</div>
+      <p class="diff-text" data-i18n="why.text">El modelo estándar de la industria te pide una inversión fuerte en equipos, licencias y nubes ajenas — y luego procesa tu información en servidores que no controlas. Nosotros invertimos, operamos, y tú simplemente empiezas a ahorrar desde el primer día.</p>
     </div>
     <div class="diff-points">
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Cero inversión de tu parte</strong>AIDA importa, instala y configura todo. Tú no desembolsas en equipos, software ni implementación.</div>
-      </div>
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Un costo mensual bajo y predecible</strong>Sin sorpresas. Sin licencias adicionales. Sin pagar por procesar tu propia información en servidores ajenos.</div>
-      </div>
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Tu información permanece tuya</strong>Edge AI 100% local. Ningún dato sale a servidores de terceros. Tu operación queda bajo tu control total.</div>
-      </div>
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Máxima velocidad · sin latencia</strong>Al procesar localmente, la respuesta es inmediata. Sin esperar servidores remotos ni depender de la velocidad del internet.</div>
-      </div>
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Opera sin internet</strong>Corte de fibra, falla del router, zona sin cobertura — tus sistemas siguen funcionando sin interrupciones.</div>
-      </div>
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Opera sin electricidad</strong>Respaldo energético incluido. Un corte de luz no detiene tu operación.</div>
-      </div>
-      <div class="diff-point">
-        <span class="diff-check">→</span>
-        <div class="diff-pt"><strong>Equipos, garantía y mantenimiento incluidos</strong>La vida útil del hardware, las actualizaciones y el soporte técnico son responsabilidad de AIDA.</div>
-      </div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d1t">Cero inversión de tu parte</strong><span data-i18n="why.d1d">AIDA importa, instala y configura todo. Tú no desembolsas en equipos, software ni implementación.</span></div></div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d2t">Costo mensual fijo y predecible</strong><span data-i18n="why.d2d">Sin sorpresas. Sin licencias adicionales. Sin pagar por procesar tu propia información en servidores ajenos.</span></div></div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d3t">Tu información permanece tuya</strong><span data-i18n="why.d3d">Edge AI 100% local. Ningún dato sale a servidores de terceros. Tu operación queda bajo tu control total.</span></div></div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d4t">Máxima velocidad · sin latencia</strong><span data-i18n="why.d4d">Al procesar localmente, la respuesta es inmediata. Sin esperar servidores remotos ni depender del internet.</span></div></div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d5t">Opera sin internet</strong><span data-i18n="why.d5d">Corte de fibra, falla del router, zona sin cobertura — tus sistemas siguen funcionando sin interrupciones.</span></div></div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d6t">Resiliencia a cortes de energía</strong><span data-i18n="why.d6d">Soluciones compactas y de bajo consumo, fácilmente respaldadas por un UPS. Tu operación no debe detenerse.</span></div></div>
+      <div class="diff-point"><span class="diff-check">→</span><div class="diff-pt"><strong data-i18n="why.d7t">Equipos, garantía y mantenimiento incluidos</strong><span data-i18n="why.d7d">La vida útil del hardware, las actualizaciones y el soporte técnico son responsabilidad de AIDA.</span></div></div>
     </div>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════ CONTACTO -->
 <section class="sw" id="contact">
   <div class="contact-grid">
     <div>
-      <div class="sl">Contacto</div>
-      <h2 class="st">Hablemos de<br>tu proyecto.</h2>
-      <p class="contact-sub">Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver.</p>
+      <div class="sl" data-i18n="contact.label">Contacto</div>
+      <h2 class="st" data-i18n="contact.title">Hablemos de<br>tu proyecto.</h2>
+      <p class="contact-sub" data-i18n="contact.sub">Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver.</p>
       <div class="contact-links">
-        <a href="mailto:mario@aida-ec.com" class="contact-link">
-          <span class="clink-label">Mail</span>mario@aida-ec.com
-        </a>
-        <a href="https://wa.me/593987234527" target="_blank" rel="noopener" class="contact-link">
-          <span class="clink-label">WA</span>+593 98 723 4527
-        </a>
-        <a href="#" class="contact-link">
-          <span class="clink-label">País</span>Ecuador · Quito
-        </a>
+        <a href="mailto:mario@aida-ec.com" class="contact-link"><span class="clink-label">Mail</span>mario@aida-ec.com</a>
+        <a href="https://wa.me/593987234527" target="_blank" rel="noopener" class="contact-link"><span class="clink-label">WA</span>+593 98 723 4527</a>
+        <a href="#" class="contact-link"><span class="clink-label" data-i18n="contact.country">País</span>Ecuador · Quito</a>
       </div>
     </div>
     <div class="form-area">
       <div class="form-field">
-        <label class="form-label">Nombre</label>
-        <input type="text" class="form-input" placeholder="Tu nombre o empresa" name="name">
+        <label class="form-label" data-i18n="form.name">Nombre</label>
+        <input type="text" class="form-input" data-i18n-placeholder="form.name.ph" placeholder="Tu nombre o empresa" name="name">
       </div>
       <div class="form-field">
-        <label class="form-label">Correo</label>
+        <label class="form-label" data-i18n="form.email">Correo</label>
         <input type="email" class="form-input" placeholder="tu@correo.com" name="email">
       </div>
       <div class="form-field">
-        <label class="form-label">Mensaje</label>
-        <textarea class="form-input" placeholder="¿Qué proceso te gustaría automatizar?" name="message"></textarea>
+        <label class="form-label" data-i18n="form.message">Mensaje</label>
+        <textarea class="form-input" data-i18n-placeholder="form.message.ph" placeholder="¿Qué proceso te gustaría automatizar?" name="message"></textarea>
       </div>
-      <button class="btn-primary" id="submitBtn" style="align-self:flex-start;margin-top:0.25rem;">Enviar mensaje</button>
+      <button class="btn-primary" id="submitBtn" style="align-self:flex-start;margin-top:0.25rem;" data-i18n="form.send">Enviar mensaje</button>
       <p class="form-note" id="formNote" style="display:none;"></p>
     </div>
   </div>
@@ -354,17 +371,146 @@ footer{padding:2rem 4vw;border-top:1px solid var(--border);display:flex;justify-
 
 <footer>
   <div class="footer-logo">AIDA · A.I. Deployment Apps</div>
-  <div class="footer-copy">© 2025 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+  <div class="footer-copy">© 2026 A.I. Deployment Analytics S.A.S. · Ecuador</div>
 </footer>
 
 <script>
-/* Mobile menu */
+// ─── TRANSLATIONS ────────────────────────────────────────────────────────────
+const i18n = {
+  es: {
+    'nav.about':'Nosotros','nav.solutions':'Soluciones','nav.why':'Por qué AIDA','nav.contact':'Contacto',
+    'hero.sub':'Sistemas inteligentes que trabajan por ti — en tu infraestructura, bajo tu control, sin depender de nubes ajenas. IA que vive en el mundo físico.',
+    'hero.cta1':'Conversemos','hero.cta2':'Ver soluciones',
+    'about.label':'Quiénes somos',
+    'about.p1':'AIDA es una empresa que diseña, desarrolla y despliega sistemas de inteligencia artificial aplicada. No vendemos IA como concepto — construimos soluciones que hacen trabajo real, integradas al mundo físico de tu operación.',
+    'about.p2':'Nuestros productos nacieron de una convicción: la IA más poderosa no vive en la nube, vive en el lugar donde ocurren las cosas.',
+    'about.p1t':'Empresa ecuatoriana','about.p1d':'Fundada en Ecuador, operamos en el contexto local con tecnología de punta. Soporte en tu idioma, en tu zona horaria.',
+    'about.p2t':'Soberanía Tecnológica','about.p2d':'Control total de la información y los alcances de la solución, con la flexibilidad de adaptarse a cambios en el tiempo a un bajo costo.',
+    'about.p3t':'Edge AI nativa','about.p3d':'Diseñamos para correr localmente desde el primer día. Velocidad máxima, privacidad total, sin dependencias externas.',
+    'about.p4t':'Soluciones propias','about.p4d':'LIDIA, Gepetto, Lucero y Visión Industrial son productos desarrollados por AIDA — no revendemos software ajeno.',
+    'sol.label':'Soluciones','sol.title':'Sistemas que ya\nestán vivos.',
+    'sol.intro':'Cada solución es un catálogo de capacidades que configuramos a la medida de tu operación. No comprás una caja cerrada — construimos exactamente lo que necesitás, en tu espacio, con tus procesos.',
+    'sol1.title':'Visión por Computadora',
+    'sol1.desc':'Sistema de vigilancia autónoma que reemplaza al equipo de monitoreo. Detecta, disuade, comunica y registra — sin intervención humana. Configurable por cámara y necesidad, con un catálogo de capacidades que se activan a medida.',
+    'sol1.t1':'Detección de armas','sol1.t2':'Manos arriba · pánico','sol1.t3':'Reconocimiento facial','sol1.t4':'Placas vehiculares','sol1.t5':'Detección de fuego','sol1.t6':'Control de acceso','sol1.t7':'Domótica integrada','sol1.t8':'EPP / seguridad laboral','sol1.t9':'Distracciones al volante','sol1.t10':'Velocidad vehicular','sol1.t11':'Extracción de documentos','sol1.t12':'Entrenamiento personalizado','sol1.t13':'IA conversacional del video',
+    'sol2.title':'Automatización AIoT',
+    'sol2.desc':'Conectamos sensores, actuadores y el mundo físico con un agente IA que interpreta, decide y actúa — en distancias cortas (WiFi/Bluetooth), medias (Zigbee) y largas (LoRa, sin costo de datos celulares). Optimización inteligente de recursos, flujos industriales y logística de campo, todo bajo Edge AI local.',
+    'sol2.t1':'Nivel de combustible','sol2.t2':'Cisternas y bombas','sol2.t3':'GPS + RTK sin cellular','sol2.t4':'Montacargas y logística','sol2.t5':'Riego inteligente','sol2.t6':'Gestión de energía','sol2.t7':'Sensores de presión','sol2.t8':'Temperatura · humedad','sol2.t9':'Alertas y notificaciones','sol2.t10':'Decisiones autónomas','sol2.t11':'LoRa · sin costo de datos','sol2.t12':'Respaldo energético',
+    'sol3.title':'RPA — Robotic Process Automation',
+    'sol3.desc':'IA local que automatiza el trabajo administrativo repetitivo — lectura de correos, clasificación de documentos, llenado de formularios, extracción de datos y flujos de aprobación. Velocidad máxima y la más alta configuración de seguridad de la información: todo procesado en tu infraestructura, sin enviar datos a ninguna nube externa.',
+    'sol3.t1':'Lectura de correos','sol3.t2':'Archivo inteligente','sol3.t3':'Llenado de formularios','sol3.t4':'Extracción de datos','sol3.t5':'Procesamiento de facturas','sol3.t6':'Flujos de aprobación','sol3.t7':'Contratos y documentos','sol3.t8':'Reportes automáticos',
+    'sol4.title':'Visión Industrial','sol4.full':'Soluciones Industriales a la Medida',
+    'sol4.desc':'Conteo, inspección y control de calidad en tiempo real para líneas de producción. Visión por computadora entrenada para tu proceso, corriendo localmente sin latencia ni dependencias externas.',
+    'sol4.t1':'Conteo automatizado','sol4.t2':'Control de calidad','sol4.t3':'Detección de defectos','sol4.t4':'Reportes en tiempo real','sol4.t5':'Entrenamiento personalizado',
+    'why.label':'Por qué AIDA',
+    'why.quote':'"Tu operación no debería depender de la nube de otro, ni detenerse cuando se va la luz."',
+    'why.text':'El modelo estándar de la industria te pide una inversión fuerte en equipos, licencias y nubes ajenas — y luego procesa tu información en servidores que no controlas. Nosotros invertimos, operamos, y tú simplemente empiezas a ahorrar desde el primer día.',
+    'why.d1t':'Cero inversión de tu parte','why.d1d':'AIDA importa, instala y configura todo. Tú no desembolsas en equipos, software ni implementación.',
+    'why.d2t':'Costo mensual fijo y predecible','why.d2d':'Sin sorpresas. Sin licencias adicionales. Sin pagar por procesar tu propia información en servidores ajenos.',
+    'why.d3t':'Tu información permanece tuya','why.d3d':'Edge AI 100% local. Ningún dato sale a servidores de terceros. Tu operación queda bajo tu control total.',
+    'why.d4t':'Máxima velocidad · sin latencia','why.d4d':'Al procesar localmente, la respuesta es inmediata. Sin esperar servidores remotos ni depender del internet.',
+    'why.d5t':'Opera sin internet','why.d5d':'Corte de fibra, falla del router, zona sin cobertura — tus sistemas siguen funcionando sin interrupciones.',
+    'why.d6t':'Resiliencia a cortes de energía','why.d6d':'Soluciones compactas y de bajo consumo, fácilmente respaldadas por un UPS. Tu operación no debe detenerse.',
+    'why.d7t':'Equipos, garantía y mantenimiento incluidos','why.d7d':'La vida útil del hardware, las actualizaciones y el soporte técnico son responsabilidad de AIDA.',
+    'contact.label':'Contacto','contact.title':'Hablemos de\ntu proyecto.',
+    'contact.sub':'Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver.',
+    'contact.country':'País',
+    'form.name':'Nombre','form.name.ph':'Tu nombre o empresa','form.email':'Correo','form.message':'Mensaje','form.message.ph':'¿Qué proceso te gustaría automatizar?','form.send':'Enviar mensaje',
+  },
+  en: {
+    'nav.about':'About','nav.solutions':'Solutions','nav.why':'Why AIDA','nav.contact':'Contact',
+    'hero.sub':'Intelligent systems that work for you — in your infrastructure, under your control, independent from third-party clouds. AI that lives in the physical world.',
+    'hero.cta1':"Let's talk",'hero.cta2':'See solutions',
+    'about.label':'Who we are',
+    'about.p1':"AIDA is a company that designs, develops and deploys applied Artificial Intelligence systems. We don't sell AI as a concept — we build solutions that do real work, integrated into the physical world of your operation.",
+    'about.p2':'Our products were born from one conviction: the most powerful AI doesn\'t live in the cloud — it lives where things happen.',
+    'about.p1t':'Ecuadorian company','about.p1d':'Founded in Ecuador, we operate in the local context with cutting-edge technology. Support in your language, in your time zone.',
+    'about.p2t':'Technological Sovereignty','about.p2d':'Full control over your information and solution scope, with the flexibility to adapt over time at low cost.',
+    'about.p3t':'Native Edge AI','about.p3d':'Built to run locally from day one. Maximum speed, total privacy, no external dependencies.',
+    'about.p4t':'Proprietary solutions','about.p4d':'LIDIA, Gepetto, Lucero and Industrial Vision are products developed by AIDA — we don\'t resell third-party software.',
+    'sol.label':'Solutions','sol.title':'Systems already\nalive.',
+    'sol.intro':"Each solution is a catalog of capabilities we configure to fit your operation. You don't buy a closed box — we build exactly what you need, in your space, with your processes.",
+    'sol1.title':'Computer Vision',
+    'sol1.desc':'Autonomous surveillance system that replaces a full monitoring team. Detects, deters, communicates and records — without human intervention. Configurable per camera and per need, with a catalog of capabilities activated on demand.',
+    'sol1.t1':'Weapon detection','sol1.t2':'Hands-up panic button','sol1.t3':'Facial recognition','sol1.t4':'License plate reading','sol1.t5':'Fire detection','sol1.t6':'Access control','sol1.t7':'Smart building automation','sol1.t8':'PPE / workplace safety','sol1.t9':'Driver distraction','sol1.t10':'Vehicle speed','sol1.t11':'Document extraction','sol1.t12':'Custom training','sol1.t13':'Conversational AI on video',
+    'sol2.title':'AIoT Automation',
+    'sol2.desc':'We connect sensors, actuators and the physical world with an AI agent that interprets, decides and acts — at short (WiFi/Bluetooth), medium (Zigbee) and long range (LoRa, zero cellular cost). Intelligent optimization of resources, industrial flows and field logistics, all under local Edge AI.',
+    'sol2.t1':'Fuel level','sol2.t2':'Cisterns and pumps','sol2.t3':'GPS + RTK no cellular','sol2.t4':'Forklift and logistics','sol2.t5':'Smart irrigation','sol2.t6':'Energy management','sol2.t7':'Pressure sensors','sol2.t8':'Temperature · humidity','sol2.t9':'Alerts and notifications','sol2.t10':'Autonomous decisions','sol2.t11':'LoRa · zero data cost','sol2.t12':'Energy backup',
+    'sol3.title':'RPA — Robotic Process Automation',
+    'sol3.desc':'Local AI that automates repetitive administrative work — email reading, document classification, form filling, data extraction and approval workflows. Maximum speed and the highest information security configuration: all processed within your infrastructure, no data sent to any external cloud.',
+    'sol3.t1':'Email reading','sol3.t2':'Smart filing','sol3.t3':'Form filling','sol3.t4':'Data extraction','sol3.t5':'Invoice processing','sol3.t6':'Approval workflows','sol3.t7':'Contracts and documents','sol3.t8':'Automated reports',
+    'sol4.title':'Industrial Vision','sol4.full':'Tailored Industrial Solutions',
+    'sol4.desc':'Real-time counting, inspection and quality control for production lines. Computer vision trained for your specific process, running locally with zero latency and no external dependencies.',
+    'sol4.t1':'Automated counting','sol4.t2':'Quality control','sol4.t3':'Defect detection','sol4.t4':'Real-time reports','sol4.t5':'Custom training',
+    'why.label':'Why AIDA',
+    'why.quote':'"Your operation should not depend on someone else\'s cloud, nor stop when the power goes out."',
+    'why.text':"The industry standard asks for a large upfront investment in hardware, licenses and third-party clouds — then processes your information on servers you don't control. We invest, we operate, and you simply start saving from day one.",
+    'why.d1t':'Zero upfront investment','why.d1d':'AIDA imports, installs and configures everything. You spend nothing on hardware, software or implementation.',
+    'why.d2t':'Fixed, predictable monthly cost','why.d2d':'No surprises. No additional licenses. No paying to process your own information on third-party servers.',
+    'why.d3t':'Your data stays yours','why.d3d':'100% local Edge AI. No data ever reaches third-party servers. Your operation stays under your full control.',
+    'why.d4t':'Maximum speed · zero latency','why.d4d':'Processing locally means instant response. No waiting for remote servers or depending on internet speed.',
+    'why.d5t':'Operates without internet','why.d5d':'Fiber cut, router failure, no coverage — your systems keep running without interruption.',
+    'why.d6t':'Power outage resilience','why.d6d':'Compact, low-power solutions, easily backed up by a UPS. Your operation must never stop.',
+    'why.d7t':'Hardware, warranty and maintenance included','why.d7d':'Hardware lifespan, updates and technical support are AIDA\'s responsibility.',
+    'contact.label':'Contact','contact.title':'Let\'s talk about\nyour project.',
+    'contact.sub':'Every solution starts with a conversation. Tell us which process you want to automate or which problem you need to solve.',
+    'contact.country':'Country',
+    'form.name':'Name','form.name.ph':'Your name or company','form.email':'Email','form.message':'Message','form.message.ph':'Which process would you like to automate?','form.send':'Send message',
+  }
+};
+
+// ─── LANG ENGINE ─────────────────────────────────────────────────────────────
+let currentLang = 'es';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+
+  // Update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      // Preserve <em> in hero sub
+      if (key === 'hero.sub') {
+        if (lang === 'es') {
+          el.innerHTML = 'Sistemas inteligentes que <em>trabajan por ti</em> — en tu infraestructura, bajo tu control, sin depender de nubes ajenas.<br>IA que vive en el mundo físico.';
+        } else {
+          el.innerHTML = 'Intelligent systems that <em>work for you</em> — in your infrastructure, under your control, independent from third-party clouds.<br>AI that lives in the physical world.';
+        }
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key]) el.placeholder = t[key];
+  });
+
+  // Toggle active buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
+  document.querySelectorAll('.mobile-lang button').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
+
+  // Update html lang attr
+  document.documentElement.lang = lang;
+
+  // Update WhatsApp message lang
+  document.getElementById('submitBtn').setAttribute('data-lang', lang);
+}
+
+// ─── MOBILE MENU ─────────────────────────────────────────────────────────────
 const ham = document.getElementById('hamburger');
 const menu = document.getElementById('mobileMenu');
 ham.addEventListener('click', () => menu.classList.toggle('open'));
 menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
-/* Smooth scroll */
+// ─── SMOOTH SCROLL ───────────────────────────────────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const t = document.querySelector(a.getAttribute('href'));
@@ -372,23 +518,27 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* Contact form — redirige a WhatsApp con el mensaje pre-armado */
+// ─── CONTACT FORM → WHATSAPP ─────────────────────────────────────────────────
 document.getElementById('submitBtn').addEventListener('click', () => {
-  const name = document.querySelector('[name="name"]').value.trim();
-  const email = document.querySelector('[name="email"]').value.trim();
+  const name    = document.querySelector('[name="name"]').value.trim();
+  const email   = document.querySelector('[name="email"]').value.trim();
   const message = document.querySelector('[name="message"]').value.trim();
-  const note = document.getElementById('formNote');
+  const note    = document.getElementById('formNote');
+  const lang    = currentLang;
 
   if (!name || !email || !message) {
-    note.textContent = 'Por favor completa todos los campos.';
+    note.textContent = lang === 'es' ? 'Por favor completa todos los campos.' : 'Please fill in all fields.';
     note.style.display = 'block';
     note.style.color = '#c8b89a';
     return;
   }
 
-  const text = encodeURIComponent(`Hola AIDA, mi nombre es ${name} (${email}).\n\n${message}`);
-  window.open(`https://wa.me/593987234527?text=${text}`, '_blank');
-  note.textContent = 'Abriendo WhatsApp...';
+  const greeting = lang === 'es'
+    ? `Hola AIDA, mi nombre es ${name} (${email}).\n\n${message}`
+    : `Hello AIDA, my name is ${name} (${email}).\n\n${message}`;
+
+  window.open(`https://wa.me/593987234527?text=${encodeURIComponent(greeting)}`, '_blank');
+  note.textContent = lang === 'es' ? 'Abriendo WhatsApp...' : 'Opening WhatsApp...';
   note.style.display = 'block';
   note.style.color = '#6b6560';
 });
