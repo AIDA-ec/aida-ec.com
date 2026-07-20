@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Automatización Administrativa con IA local — AIDA. RPA, lectura de documentos, flujos de aprobación. Sin nube. Ecuador.">
+<title>Automatización Administrativa · AIDA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--white:#ffffff;--surface:#F5F5F7;--surface2:#E8E8ED;--text:#1D1D1F;--text2:#6E6E73;--text3:#86868B;--accent:#0071E3;--accent-hover:#0077ED;--gold:#8A7A62;--border:#D2D2D7;--border-light:#E8E8ED;--deep:#1C2B3A;--deep2:#243447;--deep3:#2E4058;--display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--radius:16px;--radius-sm:10px;}
+html{scroll-behavior:smooth;}body{background:var(--white);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;height:52px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);}
+.nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em;}.nav-logo span{color:var(--gold);}
+.nav-back{font-size:0.82rem;font-weight:500;color:var(--text2);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;}.nav-back:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#fff;padding:0.42rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:500;text-decoration:none;}.nav-cta:hover{background:var(--accent-hover);}
+.btn{display:inline-block;font-family:var(--body);font-size:0.9rem;font-weight:500;padding:0.75rem 1.75rem;border-radius:24px;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--surface2);}
+.btn-white{background:#fff;color:var(--accent);font-weight:600;}
+.hero{padding:7rem 5vw 5rem;background:linear-gradient(180deg,#fff 60%,#F5F5F7 100%);text-align:center;}
+.badge-pill{display:inline-block;background:rgba(0,113,227,0.08);color:var(--accent);font-size:0.76rem;font-weight:600;padding:0.35rem 1rem;border-radius:20px;margin-bottom:1.5rem;letter-spacing:0.03em;}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.6rem);font-weight:700;letter-spacing:-0.03em;line-height:1.08;color:var(--text);margin-bottom:1rem;max-width:22ch;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{font-size:1.05rem;color:var(--text2);line-height:1.65;max-width:52ch;margin:0 auto 2rem;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem;}
+section{padding:5rem 5vw;}
+.section-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.6rem;}
+.section-title{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--text);margin-bottom:0.85rem;}
+.section-sub{font-size:1rem;color:var(--text2);line-height:1.65;max-width:52ch;margin-bottom:2.5rem;}
+.ph{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--text3);font-size:0.75rem;font-weight:500;text-align:center;padding:1.25rem;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5px;background:var(--border-light);}
+.feat-card{background:var(--white);padding:1.6rem;display:flex;flex-direction:column;gap:0.7rem;transition:background 0.15s;}.feat-card:hover{background:var(--surface);}
+.feat-img{width:100%;aspect-ratio:16/7;margin-bottom:0.1rem;}
+.feat-icon{font-size:1.6rem;line-height:1;}
+.feat-title{font-family:var(--display);font-size:0.97rem;font-weight:700;color:var(--text);}
+.feat-desc{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+/* SECURITY HIGHLIGHT */
+.security{background:var(--surface);padding:5rem 5vw;}
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2rem;}
+.sec-text p{font-size:1rem;color:var(--text2);line-height:1.75;margin-bottom:1rem;}
+.sec-points{display:flex;flex-direction:column;gap:0;}
+.sec-point{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border-light);align-items:flex-start;}
+.sec-point:first-child{border-top:1px solid var(--border-light);}
+.sec-dot{width:32px;height:32px;border-radius:8px;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.sec-pt strong{display:block;font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.15rem;}
+.sec-pt span{font-size:0.82rem;color:var(--text2);line-height:1.55;}
+.destaca{background:var(--deep);padding:5rem 5vw;}
+.destaca .section-eyebrow{color:#93C5FD;}.destaca .section-title{color:#F0F6FF;}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem;}
+.d-card{background:var(--deep2);border:1px solid var(--deep3);border-radius:var(--radius);padding:1.6rem;display:flex;flex-direction:column;gap:0.65rem;transition:border-color 0.2s;}.d-card:hover{border-color:#3B82F6;}
+.d-icon{font-size:1.4rem;}.d-card h3{font-family:var(--display);font-size:0.97rem;font-weight:700;color:#F0F6FF;}
+.d-card p{font-size:0.83rem;color:#94A3B8;line-height:1.6;}
+.impl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;margin-top:2rem;counter-reset:step;}
+.impl-step{padding:1.75rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-light);display:flex;flex-direction:column;gap:0.75rem;}
+.impl-step::before{counter-increment:step;content:"0" counter(step);font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--border);line-height:1;}
+.impl-step h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);}
+.impl-step p{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+.cta-final{background:var(--accent);text-align:center;padding:5rem 5vw;}
+.cta-final h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-0.025em;color:#fff;margin-bottom:0.85rem;}
+.cta-final p{font-size:1rem;color:rgba(255,255,255,0.82);margin-bottom:2rem;max-width:42ch;margin-left:auto;margin-right:auto;}
+footer{background:var(--surface);border-top:1px solid var(--border-light);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:0.88rem;font-weight:700;color:var(--text);}
+.footer-links{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.78rem;color:var(--text3);text-decoration:none;transition:color 0.15s;}.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:0.72rem;color:var(--text3);}
+@media(max-width:768px){.sec-grid{grid-template-columns:1fr;gap:2.5rem;}.d-grid{grid-template-columns:1fr;}.impl-steps{grid-template-columns:1fr;}section{padding:4rem 5vw;}.security{padding:4rem 5vw;}.destaca{padding:4rem 5vw;}footer{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">AIDA<span>.</span></a>
+  <a href="index.html" class="nav-back">Inicio</a>
+  <a href="index.html#contact" class="nav-cta">Hablemos</a>
+</nav>
+
+<section class="hero">
+  <div class="badge-pill">Automatización Administrativa</div>
+  <h1>El trabajo repetitivo de tu oficina, <em>automatizado con IA.</em></h1>
+  <p>IA local que lee correos, clasifica documentos, extrae datos y gestiona flujos de aprobación — con la máxima seguridad: ningún dato sale de tu red.</p>
+  <div class="hero-actions">
+    <a href="index.html#contact" class="btn btn-primary">Solicitar demostración</a>
+    <a href="#features" class="btn btn-secondary">Ver capacidades</a>
+  </div>
+  <!-- ══════════════════════════════════════════════════════
+       IMAGEN HERO — RPA / AUTOMATIZACIÓN ADMINISTRATIVA
+       Archivo destino : img/rpa-hero.jpg
+       Dimensiones     : 1960 × 860 px  |  72 dpi  |  JPG 85%
+       Contenido ideal : Pantalla de dashboard con flujo de documentos,
+                         bandeja de entrada procesada automáticamente,
+                         o interfaz de flujo de aprobación.
+       Para activar    : Borra el div.ph y descomenta la línea <img>
+  ════════════════════════════════════════════════════════ -->
+  <div class="ph" style="width:100%;max-width:980px;margin:0 auto;aspect-ratio:16/7;border-radius:20px;">
+    📄&nbsp; img/rpa-hero.jpg &nbsp;·&nbsp; 1960 × 860 px<br>
+    <small>Dashboard de flujo de documentos o bandeja de entrada procesada automáticamente</small>
+  </div>
+  <!-- <img src="img/rpa-hero.jpg" alt="Automatización Administrativa AIDA" style="width:100%;max-width:980px;border-radius:20px;display:block;margin:0 auto;"> -->
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-eyebrow">Capacidades</div>
+  <h2 class="section-title">Lo que el sistema hace por ti.</h2>
+  <p class="section-sub">Cada flujo se configura según tus procesos actuales. No cambiamos cómo trabajas — lo aceleramos.</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-img ph">✉️&nbsp; img/feat-correos.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-correos.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Lectura de correos"> -->
+      <div class="feat-icon">✉️</div>
+      <div class="feat-title">Lectura y clasificación de correos</div>
+      <div class="feat-desc">Lee tu bandeja de entrada, identifica el tipo de correo, extrae información clave y lo clasifica o redirige según las reglas que definas.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">📁&nbsp; img/feat-archivo.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-archivo.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Archivo inteligente"> -->
+      <div class="feat-icon">📁</div>
+      <div class="feat-title">Archivo inteligente de documentos</div>
+      <div class="feat-desc">Organiza, renombra y archiva documentos automáticamente según su contenido. Contratos, facturas, reportes — cada uno en su lugar sin intervención manual.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">📝&nbsp; img/feat-formularios.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-formularios.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Llenado de formularios"> -->
+      <div class="feat-icon">📝</div>
+      <div class="feat-title">Llenado automático de formularios</div>
+      <div class="feat-desc">Extrae datos de documentos fuente y los traslada automáticamente a formularios digitales, sistemas o plataformas. Cero digitación manual.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">🔍&nbsp; img/feat-extraccion.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-extraccion.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Extracción de datos"> -->
+      <div class="feat-icon">🔍</div>
+      <div class="feat-title">Extracción de datos de documentos</div>
+      <div class="feat-desc">Lee facturas, contratos, informes y cédulas. Extrae campos específicos (RUC, fechas, montos, nombres) y los estructura en tablas o bases de datos.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">✅&nbsp; img/feat-aprobaciones.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-aprobaciones.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Flujos de aprobación"> -->
+      <div class="feat-icon">✅</div>
+      <div class="feat-title">Flujos de aprobación automatizados</div>
+      <div class="feat-desc">Define reglas de aprobación y el sistema enruta cada solicitud al responsable correcto, hace seguimiento y registra el historial de decisiones.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">📊&nbsp; img/feat-reportes-rpa.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-reportes-rpa.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Reportes automáticos"> -->
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Reportes automáticos periódicos</div>
+      <div class="feat-desc">Genera y envía reportes diarios, semanales o mensuales con la información que necesitas, en el formato que necesitas, sin que nadie lo prepare.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SEGURIDAD -->
+<section class="security" id="seguridad">
+  <div class="section-eyebrow">Seguridad de la información</div>
+  <h2 class="section-title">Tu información más sensible, bajo tu control total.</h2>
+  <div class="sec-grid">
+    <div class="sec-text">
+      <p>Los procesos administrativos manejan información crítica: contratos, datos financieros, información de clientes y empleados. La mayoría de soluciones RPA en el mercado procesan esos datos en servidores de terceros.</p>
+      <p>AIDA lo hace diferente: toda la IA corre localmente en tu infraestructura. Ningún documento, ningún dato, ninguna imagen sale de tu red.</p>
+    </div>
+    <div class="sec-points">
+      <div class="sec-point"><div class="sec-dot">🔒</div><div class="sec-pt"><strong>Procesamiento 100% local</strong><span>La IA corre en tu servidor. Los datos nunca viajan a nubes externas.</span></div></div>
+      <div class="sec-point"><div class="sec-dot">🚫</div><div class="sec-pt"><strong>Sin acceso de terceros</strong><span>AIDA no tiene acceso a tus documentos ni a los datos que procesa el sistema.</span></div></div>
+      <div class="sec-point"><div class="sec-dot">📋</div><div class="sec-pt"><strong>Historial de auditoría</strong><span>Registro completo de cada acción que realiza el sistema, con trazabilidad total.</span></div></div>
+      <div class="sec-point"><div class="sec-dot">⚡</div><div class="sec-pt"><strong>Velocidad máxima</strong><span>Al procesar localmente, la respuesta es inmediata. Sin latencia de red.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTACA -->
+<section class="destaca">
+  <div class="section-eyebrow">Ventajas</div>
+  <h2 class="section-title">RPA con IA, no solo automatización de clics.</h2>
+  <div class="d-grid">
+    <div class="d-card">
+      <div class="d-icon">🧠</div>
+      <h3>IA que entiende documentos</h3>
+      <p>No solo extrae campos fijos — entiende el contexto. Puede leer una factura en cualquier formato y extraer la información correcta.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🔗</div>
+      <h3>Integración con tus sistemas</h3>
+      <p>Se conecta con tu ERP, CRM, correo, Google Drive, SharePoint o cualquier sistema que ya uses. No reemplaza tus herramientas, las automatiza.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">📐</div>
+      <h3>Configurable a tu proceso</h3>
+      <p>Cada empresa tiene sus propias reglas. El sistema se configura según tus flujos específicos, no al revés.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">📈</div>
+      <h3>Crece con tu operación</h3>
+      <p>Empieza automatizando un proceso y expande. Cada nuevo flujo se agrega sin reemplazar lo que ya funciona.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTACIÓN -->
+<section id="implementacion">
+  <div class="section-eyebrow">Proceso</div>
+  <h2 class="section-title">De los procesos actuales a la automatización.</h2>
+  <p class="section-sub">Empezamos por entender cómo trabajas hoy antes de automatizar nada.</p>
+  <div class="impl-steps">
+    <div class="impl-step">
+      <h3>Mapeo de procesos</h3>
+      <p>Identificamos los procesos repetitivos con mayor volumen y menor valor agregado. Priorizamos los que generan mayor retorno al automatizarse.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Configuración y entrenamiento</h3>
+      <p>Configuramos la IA con tus documentos, reglas y flujos. El sistema aprende el contexto de tu operación específica.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Despliegue y monitoreo</h3>
+      <p>Instalamos en tu infraestructura, verificamos cada flujo con casos reales y te entregamos el sistema en producción. Soporte presencial incluido.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <h2>¿Cuántas horas pierde tu equipo en trabajo repetitivo?</h2>
+  <p>Cuéntanos qué proceso quieres automatizar primero y te mostramos cómo hacerlo.</p>
+  <a href="index.html#contact" class="btn btn-white">Conversemos</a>
+</section>
+
+<footer>
+  <div class="footer-logo">AIDA · A.I. Deployment Apps</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="videovigilancia.html">Videovigilancia Inteligente</a>
+    <a href="aiot.html">Automatización AIoT</a>
+    <a href="rpa.html">Automatización Administrativa</a>
+    <a href="vision-industrial.html">Visión Industrial</a>
+  </div>
+  <div class="footer-copy">© 2026 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+</footer>
+</body>
+</html>

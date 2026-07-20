@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Videovigilancia Inteligente con IA local — AIDA. Detección autónoma 24/7, alertas en tiempo real, sin nube. Ecuador.">
+<title>Videovigilancia Inteligente · AIDA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--white:#ffffff;--surface:#F5F5F7;--surface2:#E8E8ED;--text:#1D1D1F;--text2:#6E6E73;--text3:#86868B;--accent:#0071E3;--accent-hover:#0077ED;--gold:#8A7A62;--gold-light:#C8B89A;--border:#D2D2D7;--border-light:#E8E8ED;--deep:#1C2B3A;--deep2:#243447;--deep3:#2E4058;--display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--radius:16px;--radius-sm:10px;}
+html{scroll-behavior:smooth;}body{background:var(--white);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;height:52px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);}
+.nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em;}.nav-logo span{color:var(--gold);}
+.nav-back{font-size:0.82rem;font-weight:500;color:var(--text2);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;}.nav-back:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#fff;padding:0.42rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:500;text-decoration:none;transition:background 0.15s;}.nav-cta:hover{background:var(--accent-hover);}
+.btn{display:inline-block;font-family:var(--body);font-size:0.9rem;font-weight:500;padding:0.75rem 1.75rem;border-radius:24px;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--surface2);}
+.btn-white{background:#fff;color:var(--accent);font-weight:600;}
+/* HERO */
+.hero{padding:7rem 5vw 5rem;background:linear-gradient(180deg,#fff 60%,#F5F5F7 100%);text-align:center;}
+.badge-pill{display:inline-block;background:rgba(0,113,227,0.08);color:var(--accent);font-size:0.76rem;font-weight:600;padding:0.35rem 1rem;border-radius:20px;margin-bottom:1.5rem;letter-spacing:0.03em;}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.6rem);font-weight:700;letter-spacing:-0.03em;line-height:1.08;color:var(--text);margin-bottom:1rem;max-width:20ch;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{font-size:1.05rem;color:var(--text2);line-height:1.65;max-width:52ch;margin:0 auto 2rem;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem;}
+.hero-img{width:100%;max-width:980px;margin:0 auto;}
+/* SECTIONS */
+section{padding:5rem 5vw;}
+.section-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.6rem;}
+.section-title{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--text);margin-bottom:0.85rem;}
+.section-sub{font-size:1rem;color:var(--text2);line-height:1.65;max-width:52ch;margin-bottom:2.5rem;}
+/* PLACEHOLDER */
+.ph{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--text3);font-size:0.75rem;font-weight:500;text-align:center;padding:1.25rem;}
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.5px;background:var(--border-light);}
+.feat-card{background:var(--white);padding:1.6rem;display:flex;flex-direction:column;gap:0.7rem;transition:background 0.15s;}.feat-card:hover{background:var(--surface);}
+.feat-img{width:100%;aspect-ratio:16/7;margin-bottom:0.1rem;}
+.feat-icon{font-size:1.6rem;line-height:1;}
+.feat-title{font-family:var(--display);font-size:0.97rem;font-weight:700;color:var(--text);}
+.feat-desc{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+/* DESTACA */
+.destaca{background:var(--deep);padding:5rem 5vw;}
+.destaca .section-eyebrow{color:#93C5FD;}.destaca .section-title{color:#F0F6FF;}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem;}
+.d-card{background:var(--deep2);border:1px solid var(--deep3);border-radius:var(--radius);padding:1.6rem;display:flex;flex-direction:column;gap:0.65rem;transition:border-color 0.2s;}.d-card:hover{border-color:#3B82F6;}
+.d-card.wide{grid-column:1/-1;}
+.d-icon{font-size:1.4rem;}.d-card h3{font-family:var(--display);font-size:0.97rem;font-weight:700;color:#F0F6FF;}
+.d-card p{font-size:0.83rem;color:#94A3B8;line-height:1.6;}
+.d-card ul{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+.d-card li{font-size:0.82rem;color:#94A3B8;line-height:1.5;padding-left:1.2rem;position:relative;}.d-card li::before{content:'·';position:absolute;left:0.2rem;color:#60A5FA;}
+/* COMPARATIVO */
+.comp-wrap{background:var(--surface);padding:5rem 5vw;}
+.comp-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);}
+.comp-table{width:100%;border-collapse:collapse;font-size:0.86rem;}
+.comp-table th{padding:11px 14px;text-align:center;font-weight:600;font-size:0.78rem;color:var(--text2);border-bottom:1px solid var(--border);background:var(--white);}
+.comp-table th:first-child{text-align:left;}
+.comp-table th.lc{background:var(--text);color:#fff;border-radius:12px 12px 0 0;}
+.comp-table td{padding:10px 14px;text-align:center;border-bottom:1px solid var(--border-light);background:var(--white);}
+.comp-table td:first-child{text-align:left;font-weight:500;color:var(--text);background:var(--surface);}
+.comp-table td.lc{background:#F8F8FA;border-left:2px solid var(--accent);border-right:2px solid var(--accent);}
+.comp-table tr:last-child td.lc{border-bottom:2px solid var(--accent);border-radius:0 0 12px 12px;}
+.comp-table tr.sep td{background:var(--surface2);font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);padding:7px 14px;}
+.comp-table tr.sep td:first-child{text-align:left;}
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:0.76rem;font-weight:500;}
+.bg{background:#EAF3DE;color:#2E6B0B;}.br{background:#FCEBEB;color:#9B2222;}
+.ba{background:#FEF3C7;color:#92400E;border:1px solid #F59E0B;}
+.comp-legend{display:flex;gap:1.25rem;margin-top:0.85rem;flex-wrap:wrap;}
+.comp-legend span{display:flex;align-items:center;gap:0.35rem;font-size:0.76rem;color:var(--text2);}
+.comp-legend i{width:9px;height:9px;border-radius:2px;display:inline-block;}
+/* IMPLEMENTACIÓN */
+.impl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;margin-top:2rem;counter-reset:step;}
+.impl-step{padding:1.75rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-light);display:flex;flex-direction:column;gap:0.75rem;}
+.impl-step::before{counter-increment:step;content:"0" counter(step);font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--border);line-height:1;}
+.impl-step h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);}
+.impl-step p{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+/* CTA */
+.cta-final{background:var(--accent);text-align:center;padding:5rem 5vw;}
+.cta-final h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-0.025em;color:#fff;margin-bottom:0.85rem;}
+.cta-final p{font-size:1rem;color:rgba(255,255,255,0.82);margin-bottom:2rem;max-width:42ch;margin-left:auto;margin-right:auto;}
+footer{background:var(--surface);border-top:1px solid var(--border-light);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:0.88rem;font-weight:700;color:var(--text);}
+.footer-links{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.78rem;color:var(--text3);text-decoration:none;transition:color 0.15s;}.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:0.72rem;color:var(--text3);}
+@media(max-width:768px){.d-grid{grid-template-columns:1fr;}.d-card.wide{grid-column:auto;}.impl-steps{grid-template-columns:1fr;}section{padding:4rem 5vw;}.destaca{padding:4rem 5vw;}.comp-wrap{padding:4rem 5vw;}footer{flex-direction:column;align-items:flex-start;}}
+@media(max-width:480px){.feat-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">AIDA<span>.</span></a>
+  <a href="index.html" class="nav-back">Inicio</a>
+  <a href="index.html#contact" class="nav-cta">Hablemos</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge-pill">Videovigilancia Inteligente</div>
+  <h1>Tus cámaras de seguridad, <em>ahora trabajan solas.</em></h1>
+  <p>Un sistema de IA local que convierte el video de tus cámaras existentes en información útil — automatizando alertas, reportes y acciones disuasivas en tiempo real, sin enviar un solo frame a la nube.</p>
+  <div class="hero-actions">
+    <a href="index.html#contact" class="btn btn-primary">Solicitar demostración</a>
+    <a href="#comparativo" class="btn btn-secondary">Ver comparativo</a>
+  </div>
+  <!-- ══════════════════════════════════════════════════════
+       IMAGEN HERO — VIDEOVIGILANCIA
+       Archivo destino : img/vigilancia-hero.jpg
+       Dimensiones     : 1960 × 860 px
+       Resolución      : 72 dpi
+       Formato         : JPG, calidad 85%
+       Contenido ideal : Captura de pantalla con múltiples cámaras activas
+                         y detecciones visibles (bounding boxes, etiquetas).
+                         Puedes usar gepetto.png o lidia.png como base.
+       Para activar    : Borra el div.ph y descomenta la línea <img>
+  ════════════════════════════════════════════════════════ -->
+  <div class="hero-img">
+    <div class="ph" style="aspect-ratio:16/7;border-radius:20px;">
+      📹&nbsp; img/vigilancia-hero.jpg &nbsp;·&nbsp; 1960 × 860 px<br>
+      <small>Captura con detecciones activas — usa lidia.png o gepetto.png como referencia</small>
+    </div>
+  </div>
+  <!-- <img src="img/vigilancia-hero.jpg" alt="Videovigilancia Inteligente AIDA" style="width:100%;max-width:980px;border-radius:20px;display:block;margin:0 auto;"> -->
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-eyebrow">Capacidades</div>
+  <h2 class="section-title">Todo lo que el sistema detecta y hace.</h2>
+  <p class="section-sub">Cada capacidad es configurable por cámara. No pagas por lo que no usas.</p>
+  <div class="feat-grid">
+
+    <div class="feat-card">
+      <!-- img/feat-epp.jpg · 560×245 px · Detección de EPP en campo -->
+      <div class="feat-img ph">🦺&nbsp; img/feat-epp.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-epp.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Detección EPP"> -->
+      <div class="feat-icon">🦺</div>
+      <div class="feat-title">Detección de EPP y seguridad laboral</div>
+      <div class="feat-desc">Casco, chaleco, pasos peatonales, hombre al suelo, montacargas en movimiento, grúas y zonas de riesgo. Alertas automáticas cuando alguien no cumple las normas.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-ocr.jpg · 560×245 px · Lectura de placas o cédulas -->
+      <div class="feat-img ph">🔤&nbsp; img/feat-ocr.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-ocr.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="OCR Placas"> -->
+      <div class="feat-icon">🔤</div>
+      <div class="feat-title">OCR — Placas vehiculares e identificación</div>
+      <div class="feat-desc">Lectura automática de placas (LP) y documentos de identificación (ID). Registro de entradas y salidas sin intervención humana.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-fatiga.jpg · 560×245 px · Análisis facial de fatiga al volante -->
+      <div class="feat-img ph">😴&nbsp; img/feat-fatiga.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-fatiga.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Análisis facial"> -->
+      <div class="feat-icon">😴</div>
+      <div class="feat-title">Análisis facial</div>
+      <div class="feat-desc">Detección de fatiga, microsueños, bostezos y ojos cerrados en conductores u operadores. Ideal para transporte de carga y maquinaria pesada.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-gestos.jpg · 560×245 px · Manos arriba o detección de gestos -->
+      <div class="feat-img ph">🙌&nbsp; img/feat-gestos.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-gestos.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Comandos por gestos"> -->
+      <div class="feat-icon">🙌</div>
+      <div class="feat-title">Comandos virtuales por gestos</div>
+      <div class="feat-desc">Manos arriba como botón de pánico en asaltos, señas con dedos para control de acceso, poses corporales para activar acciones — sin contacto físico.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-distancia.jpg · 560×245 px · Calibración de distancia entre elementos -->
+      <div class="feat-img ph">📐&nbsp; img/feat-distancia.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-distancia.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Detección de distancia"> -->
+      <div class="feat-icon">📐</div>
+      <div class="feat-title">Detección de distancia y proximidad</div>
+      <div class="feat-desc">Calibración de distancias reales por cámara. Alertas automáticas cuando personas o vehículos se aproximan por debajo del umbral configurado.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-velocidad.jpg · 560×245 px · Movimiento en ejes X/Y/Z -->
+      <div class="feat-img ph">🔄&nbsp; img/feat-velocidad.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-velocidad.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Velocidad y orientación"> -->
+      <div class="feat-icon">🔄</div>
+      <div class="feat-title">Orientación, rotación y velocidad</div>
+      <div class="feat-desc">Interpretación del comportamiento en ejes X/Y/Z sin entrenamiento adicional. Detecta velocidad vehicular, ángulo de inclinación de cargas y más.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-analitica.jpg · 560×245 px · Conteo de personas o afluencia -->
+      <div class="feat-img ph">📊&nbsp; img/feat-analitica.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-analitica.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Analítica de flujos"> -->
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Analítica de flujos</div>
+      <div class="feat-desc">Conteo de personas y vehículos, tiempo de permanencia, detección de filas, tiempo de espera y detección de local cerrado. Zonas con horarios y reglas configurables.</div>
+    </div>
+
+    <div class="feat-card">
+      <!-- img/feat-dashboard.jpg · 560×245 px · Captura del dashboard personalizado -->
+      <div class="feat-img ph">🖥️&nbsp; img/feat-dashboard.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-dashboard.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Dashboard"> -->
+      <div class="feat-icon">🖥️</div>
+      <div class="feat-title">Dashboard personalizado</div>
+      <div class="feat-desc">Panel de estadísticas configurado con la información relevante de cada cámara. Visualización en tiempo real de múltiples streams simultáneos desde cualquier dispositivo.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DESTACA -->
+<section class="destaca" id="destaca">
+  <div class="section-eyebrow">Ventajas técnicas</div>
+  <h2 class="section-title">Diseñado para rendir al máximo.</h2>
+  <div class="d-grid">
+    <div class="d-card wide">
+      <div class="d-icon">💾</div>
+      <h3>Máxima eficiencia de almacenamiento</h3>
+      <p>Tres procesos en paralelo para nunca perder un evento y no desperdiciar espacio:</p>
+      <ul>
+        <li>Grabación continua 24/7 en timelapse (1 FPS, 144p–640p) — meses de cobertura en poco espacio</li>
+        <li>Clips de eventos automáticos (3–6 segundos, 10 FPS, 144p–640p) — solo lo importante</li>
+        <li>Stream en máxima resolución (5MP, 30 FPS) — para monitoreo en vivo sin degradar el procesamiento</li>
+        <li>Visualización simultánea de múltiples cámaras</li>
+      </ul>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🌐</div>
+      <h3>IA local — funciona sin internet</h3>
+      <p>Todo el procesamiento ocurre en tu infraestructura. El sistema sigue operando aunque se corte la conexión.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🔔</div>
+      <h3>Alertas por cualquier canal</h3>
+      <p>Con conexión a internet se integra con WhatsApp, Telegram, Slack y correo electrónico. Sin internet, registra y actúa localmente.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🔌</div>
+      <h3>Integración AIoT</h3>
+      <p>Conecta con sensores, perifoneo automático, luces, barreras y controles de acceso. El video activa acciones físicas en tiempo real.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">📷</div>
+      <h3>Compatible con tus cámaras actuales</h3>
+      <p>No necesitas reemplazar tu infraestructura existente. El sistema se adapta a las cámaras que ya tienes instaladas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARATIVO -->
+<section class="comp-wrap" id="comparativo">
+  <div class="section-eyebrow">Comparativo</div>
+  <h2 class="section-title">¿Por qué no la nube?</h2>
+  <p class="section-sub">Compara las tres alternativas del mercado en los criterios que realmente importan.</p>
+  <div class="comp-scroll">
+    <table class="comp-table">
+      <thead><tr>
+        <th style="text-align:left;width:28%;">Criterio</th>
+        <th style="width:24%;">Monitoreo inteligente<br>en la nube</th>
+        <th style="width:24%;">Monitoreo inteligente<br>local</th>
+        <th class="lc" style="width:24%;">Videovigilancia<br>Inteligente AIDA</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>CAPEX (inversión inicial)</td><td><span class="badge bg">Bajo</span></td><td><span class="badge br">Alto</span></td><td class="lc"><span class="badge ba">Máxima eficiencia</span></td></tr>
+        <tr><td>OPEX (costo mensual)</td><td><span class="badge br">Alto</span></td><td><span class="badge bg">Bajo</span></td><td class="lc"><span class="badge bg">Bajo</span></td></tr>
+        <tr><td>Seguridad de la información</td><td><span class="badge br">Baja</span></td><td><span class="badge bg">Alta</span></td><td class="lc"><span class="badge bg">Alta</span></td></tr>
+        <tr><td>Velocidad de procesamiento</td><td><span class="badge br">Baja</span></td><td><span class="badge bg">Alta</span></td><td class="lc"><span class="badge bg">Alta</span></td></tr>
+        <tr><td>Funciona sin internet</td><td><span class="badge br">No</span></td><td><span class="badge bg">Sí</span></td><td class="lc"><span class="badge bg">Sí</span></td></tr>
+        <tr class="sep"><td colspan="4">Capacidades incluidas</td></tr>
+        <tr><td>Cantidad de detecciones</td><td><span class="badge br">Limitada</span></td><td><span class="badge bg">Ilimitada</span></td><td class="lc"><span class="badge bg">Ilimitada</span></td></tr>
+        <tr><td>Lectura de placas (OCR)</td><td><span class="badge br">Adicional</span></td><td><span class="badge br">Adicional</span></td><td class="lc"><span class="badge bg">Incluido</span></td></tr>
+        <tr><td>Detección de gestos</td><td><span class="badge br">Adicional</span></td><td><span class="badge br">Adicional</span></td><td class="lc"><span class="badge bg">Incluido</span></td></tr>
+        <tr><td>Analítica avanzada</td><td><span class="badge br">Adicional</span></td><td><span class="badge br">Adicional</span></td><td class="lc"><span class="badge bg">Incluido</span></td></tr>
+        <tr><td>Cambios en lógica de detección</td><td><span class="badge br">Adicional</span></td><td><span class="badge br">Adicional</span></td><td class="lc"><span class="badge bg">Incluido</span></td></tr>
+        <tr><td>Soporte técnico</td><td><span class="badge br">Remoto / adicional</span></td><td><span class="badge br">Remoto / adicional</span></td><td class="lc"><span class="badge ba">Presencial / incluido</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="comp-legend">
+    <span><i style="background:#EAF3DE;border:1px solid #C8E6B0;"></i>Favorable</span>
+    <span><i style="background:#FCEBEB;border:1px solid #F5C6C6;"></i>Desfavorable</span>
+    <span><i style="background:#FEF3C7;border:1px solid #F59E0B;"></i>Diferenciador AIDA</span>
+  </div>
+</section>
+
+<!-- IMPLEMENTACIÓN -->
+<section id="implementacion">
+  <div class="section-eyebrow">Proceso</div>
+  <h2 class="section-title">Del acuerdo a la operación en tres pasos.</h2>
+  <p class="section-sub">Nos encargamos de todo. Tú empiezas a ver resultados sin preocuparte por la tecnología.</p>
+  <div class="impl-steps">
+    <div class="impl-step">
+      <h3>Cálculo de hardware</h3>
+      <p>Analizamos tu instalación, el número de cámaras y los casos de uso que necesitas. AIDA importa y prepara los equipos sin costo inicial para el cliente.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Pre-configuración de software</h3>
+      <p>Configuramos el sistema completo antes de llegar: detecciones, zonas, reglas, alertas, integraciones y dashboard personalizado con tu información.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Implementación y despliegue</h3>
+      <p>Instalamos en tu infraestructura, conectamos con tus cámaras existentes y entregamos el sistema en operación perfecta. Soporte presencial incluido.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <h2>¿Listo para ver el sistema en acción?</h2>
+  <p>Agenda una demostración en vivo y te mostramos el sistema funcionando en tiempo real.</p>
+  <a href="index.html#contact" class="btn btn-white">Solicitar demostración</a>
+</section>
+
+<footer>
+  <div class="footer-logo">AIDA · A.I. Deployment Apps</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="videovigilancia.html">Videovigilancia Inteligente</a>
+    <a href="aiot.html">Automatización AIoT</a>
+    <a href="rpa.html">Automatización Administrativa</a>
+    <a href="vision-industrial.html">Visión Industrial</a>
+  </div>
+  <div class="footer-copy">© 2026 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+</footer>
+</body>
+</html>

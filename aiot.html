@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Automatización AIoT con IA local — AIDA. Sensores, actuadores y decisiones autónomas sin costo de datos celulares. Ecuador.">
+<title>Automatización AIoT · AIDA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--white:#ffffff;--surface:#F5F5F7;--surface2:#E8E8ED;--text:#1D1D1F;--text2:#6E6E73;--text3:#86868B;--accent:#0071E3;--accent-hover:#0077ED;--gold:#8A7A62;--border:#D2D2D7;--border-light:#E8E8ED;--deep:#1C2B3A;--deep2:#243447;--deep3:#2E4058;--display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--radius:16px;--radius-sm:10px;}
+html{scroll-behavior:smooth;}body{background:var(--white);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;height:52px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);}
+.nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em;}.nav-logo span{color:var(--gold);}
+.nav-back{font-size:0.82rem;font-weight:500;color:var(--text2);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;}.nav-back:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#fff;padding:0.42rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:500;text-decoration:none;}.nav-cta:hover{background:var(--accent-hover);}
+.btn{display:inline-block;font-family:var(--body);font-size:0.9rem;font-weight:500;padding:0.75rem 1.75rem;border-radius:24px;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--surface2);}
+.btn-white{background:#fff;color:var(--accent);font-weight:600;}
+.hero{padding:7rem 5vw 5rem;background:linear-gradient(180deg,#fff 60%,#F5F5F7 100%);text-align:center;}
+.badge-pill{display:inline-block;background:rgba(0,113,227,0.08);color:var(--accent);font-size:0.76rem;font-weight:600;padding:0.35rem 1rem;border-radius:20px;margin-bottom:1.5rem;letter-spacing:0.03em;}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.6rem);font-weight:700;letter-spacing:-0.03em;line-height:1.08;color:var(--text);margin-bottom:1rem;max-width:20ch;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{font-size:1.05rem;color:var(--text2);line-height:1.65;max-width:52ch;margin:0 auto 2rem;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem;}
+section{padding:5rem 5vw;}
+.section-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.6rem;}
+.section-title{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--text);margin-bottom:0.85rem;}
+.section-sub{font-size:1rem;color:var(--text2);line-height:1.65;max-width:52ch;margin-bottom:2.5rem;}
+.ph{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--text3);font-size:0.75rem;font-weight:500;text-align:center;padding:1.25rem;}
+/* USE CASES */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem;margin-top:0;}
+.case-card{background:var(--surface);border-radius:var(--radius);padding:1.6rem;border:1px solid var(--border-light);display:flex;flex-direction:column;gap:0.75rem;}
+.case-img{width:100%;aspect-ratio:16/7;margin-bottom:0.1rem;}
+.case-icon{font-size:1.6rem;}
+.case-title{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);}
+.case-desc{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+.case-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.25rem;}
+.tag{font-size:0.72rem;font-weight:500;color:var(--text3);background:var(--surface2);border-radius:20px;padding:0.2rem 0.65rem;}
+/* TECH */
+.tech{background:var(--surface);padding:5rem 5vw;}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2rem;}
+.tech-card{background:var(--white);border-radius:var(--radius);padding:1.5rem;border:1px solid var(--border-light);text-align:center;display:flex;flex-direction:column;align-items:center;gap:0.6rem;}
+.tech-icon{font-size:2rem;}
+.tech-label{font-family:var(--display);font-size:0.9rem;font-weight:700;color:var(--text);}
+.tech-range{font-size:0.75rem;color:var(--accent);font-weight:600;}
+.tech-desc{font-size:0.8rem;color:var(--text2);line-height:1.55;}
+/* DESTACA */
+.destaca{background:var(--deep);padding:5rem 5vw;}
+.destaca .section-eyebrow{color:#93C5FD;}.destaca .section-title{color:#F0F6FF;}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem;}
+.d-card{background:var(--deep2);border:1px solid var(--deep3);border-radius:var(--radius);padding:1.6rem;display:flex;flex-direction:column;gap:0.65rem;transition:border-color 0.2s;}.d-card:hover{border-color:#3B82F6;}
+.d-icon{font-size:1.4rem;}.d-card h3{font-family:var(--display);font-size:0.97rem;font-weight:700;color:#F0F6FF;}
+.d-card p{font-size:0.83rem;color:#94A3B8;line-height:1.6;}
+/* IMPL */
+.impl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;margin-top:2rem;counter-reset:step;}
+.impl-step{padding:1.75rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-light);display:flex;flex-direction:column;gap:0.75rem;}
+.impl-step::before{counter-increment:step;content:"0" counter(step);font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--border);line-height:1;}
+.impl-step h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);}
+.impl-step p{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+.cta-final{background:var(--accent);text-align:center;padding:5rem 5vw;}
+.cta-final h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-0.025em;color:#fff;margin-bottom:0.85rem;}
+.cta-final p{font-size:1rem;color:rgba(255,255,255,0.82);margin-bottom:2rem;max-width:42ch;margin-left:auto;margin-right:auto;}
+footer{background:var(--surface);border-top:1px solid var(--border-light);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:0.88rem;font-weight:700;color:var(--text);}
+.footer-links{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.78rem;color:var(--text3);text-decoration:none;transition:color 0.15s;}.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:0.72rem;color:var(--text3);}
+@media(max-width:768px){.tech-grid{grid-template-columns:1fr 1fr;}.d-grid{grid-template-columns:1fr;}.impl-steps{grid-template-columns:1fr;}section{padding:4rem 5vw;}.tech{padding:4rem 5vw;}.destaca{padding:4rem 5vw;}footer{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">AIDA<span>.</span></a>
+  <a href="index.html" class="nav-back">Inicio</a>
+  <a href="index.html#contact" class="nav-cta">Hablemos</a>
+</nav>
+
+<section class="hero">
+  <div class="badge-pill">Automatización AIoT</div>
+  <h1>Las cosas que gestionas, <em>ahora se gestionan solas.</em></h1>
+  <p>Conectamos tus sensores, actuadores e infraestructura física con un agente de IA que interpreta datos, toma decisiones y actúa — sin costo de datos celulares, sin depender de la nube.</p>
+  <div class="hero-actions">
+    <a href="index.html#contact" class="btn btn-primary">Solicitar demostración</a>
+    <a href="#casos" class="btn btn-secondary">Ver casos de uso</a>
+  </div>
+  <!-- ══════════════════════════════════════════════════════
+       IMAGEN HERO — AIoT
+       Archivo destino : img/aiot-hero.jpg
+       Dimensiones     : 1960 × 860 px  |  72 dpi  |  JPG 85%
+       Contenido ideal : Dashboard con datos de sensores en tiempo real,
+                         o instalación de sensores en campo (cisterna, tanque,
+                         montacargas con GPS). Puedes usar gepetto.png como base.
+       Para activar    : Borra el div.ph y descomenta la línea <img>
+  ════════════════════════════════════════════════════════ -->
+  <div class="ph" style="width:100%;max-width:980px;margin:0 auto;aspect-ratio:16/7;border-radius:20px;">
+    🔌&nbsp; img/aiot-hero.jpg &nbsp;·&nbsp; 1960 × 860 px<br>
+    <small>Dashboard con datos de sensores en tiempo real, o instalación en campo</small>
+  </div>
+  <!-- <img src="img/aiot-hero.jpg" alt="Automatización AIoT AIDA" style="width:100%;max-width:980px;border-radius:20px;display:block;margin:0 auto;"> -->
+</section>
+
+<!-- CASOS DE USO -->
+<section id="casos">
+  <div class="section-eyebrow">Casos de uso</div>
+  <h2 class="section-title">Ya instalado y funcionando.</h2>
+  <p class="section-sub">Cada instalación es diferente. El agente de IA se configura para tu proceso específico.</p>
+  <div class="cases-grid">
+
+    <div class="case-card">
+      <!-- img/caso-combustible.jpg · 600×263 px · Tanque de combustible con sensor -->
+      <div class="case-img ph">⛽&nbsp; img/caso-combustible.jpg &nbsp;·&nbsp; 600 × 263 px</div>
+      <!-- <img src="img/caso-combustible.jpg" class="case-img" style="object-fit:cover;border-radius:8px;" alt="Control de combustible"> -->
+      <div class="case-icon">⛽</div>
+      <div class="case-title">Control de combustible</div>
+      <div class="case-desc">Mide el nivel del tanque en tiempo real, registra cada abastecimiento y descarga, detecta movimientos fuera de horario y alerta por bajo stock. Coordina el reabastecimiento automáticamente.</div>
+      <div class="case-tags"><span class="tag">Nivel de stock</span><span class="tag">Horarios permitidos</span><span class="tag">Alertas</span><span class="tag">Reportes</span></div>
+    </div>
+
+    <div class="case-card">
+      <!-- img/caso-cisterna.jpg · 600×263 px · Cisterna industrial o pozo -->
+      <div class="case-img ph">💧&nbsp; img/caso-cisterna.jpg &nbsp;·&nbsp; 600 × 263 px</div>
+      <!-- <img src="img/caso-cisterna.jpg" class="case-img" style="object-fit:cover;border-radius:8px;" alt="Cisterna inteligente"> -->
+      <div class="case-icon">💧</div>
+      <div class="case-title">Cisternas inteligentes</div>
+      <div class="case-desc">Mide el nivel de agua, enciende las bombas del pozo para llenar la cisterna y las apaga cuando se completa. Reporta el consumo diario y detecta usos inusuales.</div>
+      <div class="case-tags"><span class="tag">Bombas automáticas</span><span class="tag">Consumo diario</span><span class="tag">Notificaciones</span></div>
+    </div>
+
+    <div class="case-card">
+      <!-- img/caso-montacargas.jpg · 600×263 px · Montacargas con GPS en bodega -->
+      <div class="case-img ph">🏭&nbsp; img/caso-montacargas.jpg &nbsp;·&nbsp; 600 × 263 px</div>
+      <!-- <img src="img/caso-montacargas.jpg" class="case-img" style="object-fit:cover;border-radius:8px;" alt="GPS Montacargas"> -->
+      <div class="case-icon">🏭</div>
+      <div class="case-title">Trazabilidad de montacargas</div>
+      <div class="case-desc">GPS + RTK instalado en montacargas de bodega. Registra tiempo de operación, zonas de movimiento y actividad. El agente responde preguntas específicas sobre el comportamiento del equipo.</div>
+      <div class="case-tags"><span class="tag">GPS + RTK</span><span class="tag">Sin costo cellular</span><span class="tag">LoRa</span><span class="tag">Reportes</span></div>
+    </div>
+
+    <div class="case-card">
+      <!-- img/caso-riego.jpg · 600×263 px · Sistema de riego o campo agrícola -->
+      <div class="case-img ph">🌱&nbsp; img/caso-riego.jpg &nbsp;·&nbsp; 600 × 263 px</div>
+      <!-- <img src="img/caso-riego.jpg" class="case-img" style="object-fit:cover;border-radius:8px;" alt="Riego inteligente"> -->
+      <div class="case-icon">🌱</div>
+      <div class="case-title">Riego y dosificación inteligente</div>
+      <div class="case-desc">Sensores de humedad, temperatura y presión conectados a un agente que decide cuándo y cuánto regar o dosificar. Optimización de recursos hídricos y energéticos.</div>
+      <div class="case-tags"><span class="tag">Humedad</span><span class="tag">Temperatura</span><span class="tag">Presión</span><span class="tag">Decisiones autónomas</span></div>
+    </div>
+
+    <div class="case-card">
+      <!-- img/caso-energia.jpg · 600×263 px · Panel de gestión de energía -->
+      <div class="case-img ph">⚡&nbsp; img/caso-energia.jpg &nbsp;·&nbsp; 600 × 263 px</div>
+      <!-- <img src="img/caso-energia.jpg" class="case-img" style="object-fit:cover;border-radius:8px;" alt="Gestión de energía"> -->
+      <div class="case-icon">⚡</div>
+      <div class="case-title">Gestión de energía</div>
+      <div class="case-desc">Monitoreo de consumo eléctrico por zona, detección de picos y anomalías, control automático de cargas para optimizar el uso y reducir la factura.</div>
+      <div class="case-tags"><span class="tag">Consumo por zona</span><span class="tag">Picos</span><span class="tag">Optimización</span></div>
+    </div>
+
+    <div class="case-card">
+      <!-- img/caso-lora.jpg · 600×263 px · Sensor en campo remoto o zona sin cobertura -->
+      <div class="case-img ph">📡&nbsp; img/caso-lora.jpg &nbsp;·&nbsp; 600 × 263 px</div>
+      <!-- <img src="img/caso-lora.jpg" class="case-img" style="object-fit:cover;border-radius:8px;" alt="LoRa sin cellular"> -->
+      <div class="case-icon">📡</div>
+      <div class="case-title">Sensores en zonas remotas</div>
+      <div class="case-desc">Tecnología LoRa para transmisión de datos a larga distancia sin costo de datos celulares. Ideal para instalaciones rurales, minería, agricultura o bodegas sin cobertura.</div>
+      <div class="case-tags"><span class="tag">LoRa · largo alcance</span><span class="tag">Sin SIM</span><span class="tag">Sin costo de datos</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECNOLOGÍA DE COMUNICACIÓN -->
+<section class="tech" id="tech">
+  <div class="section-eyebrow">Conectividad</div>
+  <h2 class="section-title">La distancia no es un límite.</h2>
+  <p class="section-sub">Seleccionamos el protocolo óptimo para cada caso según distancia, consumo y costo.</p>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="tech-icon">📶</div>
+      <div class="tech-label">WiFi / Bluetooth</div>
+      <div class="tech-range">Corto alcance · hasta 100m</div>
+      <div class="tech-desc">Para sensores dentro de instalaciones. Alta velocidad de datos, ideal para dashboards en tiempo real.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">🔷</div>
+      <div class="tech-label">Zigbee</div>
+      <div class="tech-range">Alcance medio · hasta 300m</div>
+      <div class="tech-desc">Red mallada para instalaciones industriales medianas. Bajo consumo y alta fiabilidad.</div>
+    </div>
+    <div class="tech-card">
+      <div class="tech-icon">📡</div>
+      <div class="tech-label">LoRa</div>
+      <div class="tech-range">Largo alcance · hasta 15 km</div>
+      <div class="tech-desc">Sin costo de datos celulares. Para zonas rurales, campos abiertos y bodegas remotas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTACA -->
+<section class="destaca">
+  <div class="section-eyebrow">Ventajas</div>
+  <h2 class="section-title">IA que actúa, no solo que reporta.</h2>
+  <div class="d-grid">
+    <div class="d-card">
+      <div class="d-icon">🧠</div>
+      <h3>Agente IA integrado</h3>
+      <p>No solo recopila datos — interpreta, decide y actúa. El agente puede responder preguntas específicas sobre lo que ha pasado en tu instalación.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🌐</div>
+      <h3>Opera sin internet</h3>
+      <p>El sistema funciona aunque se corte la conexión. Con internet, envía alertas por WhatsApp, Telegram o correo.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🔋</div>
+      <h3>Bajo consumo energético</h3>
+      <p>Los dispositivos están diseñados para consumo mínimo. Perfectos para instalaciones con respaldo por batería o solar.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">📊</div>
+      <h3>Histórico y reportes</h3>
+      <p>Todo queda registrado localmente. Consulta el historial de eventos, consumos y alertas desde el dashboard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTACIÓN -->
+<section id="implementacion">
+  <div class="section-eyebrow">Proceso</div>
+  <h2 class="section-title">Del diagnóstico a la operación.</h2>
+  <p class="section-sub">Nos encargamos de todo el proceso, desde la selección de sensores hasta la puesta en marcha.</p>
+  <div class="impl-steps">
+    <div class="impl-step">
+      <h3>Diagnóstico y diseño</h3>
+      <p>Analizamos tu proceso, identificamos los puntos de medición y seleccionamos los sensores y protocolos de comunicación óptimos para tu caso.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Configuración del agente IA</h3>
+      <p>Programamos las reglas de decisión, alertas, horarios y acciones automáticas. El agente se entrena con el contexto de tu operación específica.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Instalación y puesta en marcha</h3>
+      <p>Instalamos los sensores, conectamos los actuadores y verificamos el sistema completo en campo. Soporte presencial durante todo el proceso.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <h2>¿Cuál proceso quieres automatizar?</h2>
+  <p>Cuéntanos tu caso y te mostramos cómo el agente IA puede gestionarlo de forma autónoma.</p>
+  <a href="index.html#contact" class="btn btn-white">Conversemos</a>
+</section>
+
+<footer>
+  <div class="footer-logo">AIDA · A.I. Deployment Apps</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="videovigilancia.html">Videovigilancia Inteligente</a>
+    <a href="aiot.html">Automatización AIoT</a>
+    <a href="rpa.html">Automatización Administrativa</a>
+    <a href="vision-industrial.html">Visión Industrial</a>
+  </div>
+  <div class="footer-copy">© 2026 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+</footer>
+</body>
+</html>

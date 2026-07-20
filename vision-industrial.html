@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Visión Industrial con IA local — AIDA. Conteo, inspección y control de calidad en tiempo real para líneas de producción. Ecuador.">
+<title>Visión Industrial · AIDA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--white:#ffffff;--surface:#F5F5F7;--surface2:#E8E8ED;--text:#1D1D1F;--text2:#6E6E73;--text3:#86868B;--accent:#0071E3;--accent-hover:#0077ED;--gold:#8A7A62;--border:#D2D2D7;--border-light:#E8E8ED;--deep:#1C2B3A;--deep2:#243447;--deep3:#2E4058;--display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--radius:16px;--radius-sm:10px;}
+html{scroll-behavior:smooth;}body{background:var(--white);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;height:52px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);}
+.nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em;}.nav-logo span{color:var(--gold);}
+.nav-back{font-size:0.82rem;font-weight:500;color:var(--text2);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;transition:color 0.15s;}.nav-back:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#fff;padding:0.42rem 1rem;border-radius:20px;font-size:0.82rem;font-weight:500;text-decoration:none;}.nav-cta:hover{background:var(--accent-hover);}
+.btn{display:inline-block;font-family:var(--body);font-size:0.9rem;font-weight:500;padding:0.75rem 1.75rem;border-radius:24px;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}.btn-secondary:hover{background:var(--surface2);}
+.btn-white{background:#fff;color:var(--accent);font-weight:600;}
+.hero{padding:7rem 5vw 5rem;background:linear-gradient(180deg,#fff 60%,#F5F5F7 100%);text-align:center;}
+.badge-pill{display:inline-block;background:rgba(0,113,227,0.08);color:var(--accent);font-size:0.76rem;font-weight:600;padding:0.35rem 1rem;border-radius:20px;margin-bottom:1.5rem;letter-spacing:0.03em;}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.6rem);font-weight:700;letter-spacing:-0.03em;line-height:1.08;color:var(--text);margin-bottom:1rem;max-width:22ch;margin-left:auto;margin-right:auto;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero p{font-size:1.05rem;color:var(--text2);line-height:1.65;max-width:52ch;margin:0 auto 2rem;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:3.5rem;}
+section{padding:5rem 5vw;}
+.section-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.6rem;}
+.section-title{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--text);margin-bottom:0.85rem;}
+.section-sub{font-size:1rem;color:var(--text2);line-height:1.65;max-width:52ch;margin-bottom:2.5rem;}
+.ph{background:var(--surface);border:2px dashed var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;color:var(--text3);font-size:0.75rem;font-weight:500;text-align:center;padding:1.25rem;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5px;background:var(--border-light);}
+.feat-card{background:var(--white);padding:1.6rem;display:flex;flex-direction:column;gap:0.7rem;transition:background 0.15s;}.feat-card:hover{background:var(--surface);}
+.feat-img{width:100%;aspect-ratio:16/7;margin-bottom:0.1rem;}
+.feat-icon{font-size:1.6rem;line-height:1;}
+.feat-title{font-family:var(--display);font-size:0.97rem;font-weight:700;color:var(--text);}
+.feat-desc{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+/* SECTORES */
+.sectores{background:var(--surface);padding:5rem 5vw;}
+.sec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-top:2rem;}
+.sec-card{background:var(--white);border-radius:var(--radius-sm);padding:1.25rem;border:1px solid var(--border-light);text-align:center;display:flex;flex-direction:column;align-items:center;gap:0.5rem;}
+.sec-icon{font-size:1.6rem;}
+.sec-label{font-family:var(--display);font-size:0.88rem;font-weight:700;color:var(--text);}
+.sec-desc{font-size:0.78rem;color:var(--text2);line-height:1.5;}
+/* DESTACA */
+.destaca{background:var(--deep);padding:5rem 5vw;}
+.destaca .section-eyebrow{color:#93C5FD;}.destaca .section-title{color:#F0F6FF;}
+.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2rem;}
+.d-card{background:var(--deep2);border:1px solid var(--deep3);border-radius:var(--radius);padding:1.6rem;display:flex;flex-direction:column;gap:0.65rem;transition:border-color 0.2s;}.d-card:hover{border-color:#3B82F6;}
+.d-icon{font-size:1.4rem;}.d-card h3{font-family:var(--display);font-size:0.97rem;font-weight:700;color:#F0F6FF;}
+.d-card p{font-size:0.83rem;color:#94A3B8;line-height:1.6;}
+.impl-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;margin-top:2rem;counter-reset:step;}
+.impl-step{padding:1.75rem;background:var(--surface);border-radius:var(--radius);border:1px solid var(--border-light);display:flex;flex-direction:column;gap:0.75rem;}
+.impl-step::before{counter-increment:step;content:"0" counter(step);font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--border);line-height:1;}
+.impl-step h3{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);}
+.impl-step p{font-size:0.83rem;color:var(--text2);line-height:1.6;}
+.cta-final{background:var(--accent);text-align:center;padding:5rem 5vw;}
+.cta-final h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-0.025em;color:#fff;margin-bottom:0.85rem;}
+.cta-final p{font-size:1rem;color:rgba(255,255,255,0.82);margin-bottom:2rem;max-width:42ch;margin-left:auto;margin-right:auto;}
+footer{background:var(--surface);border-top:1px solid var(--border-light);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:0.88rem;font-weight:700;color:var(--text);}
+.footer-links{display:flex;gap:1.25rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.78rem;color:var(--text3);text-decoration:none;}.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:0.72rem;color:var(--text3);}
+@media(max-width:768px){.d-grid{grid-template-columns:1fr;}.impl-steps{grid-template-columns:1fr;}section{padding:4rem 5vw;}.sectores{padding:4rem 5vw;}.destaca{padding:4rem 5vw;}footer{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">AIDA<span>.</span></a>
+  <a href="index.html" class="nav-back">Inicio</a>
+  <a href="index.html#contact" class="nav-cta">Hablemos</a>
+</nav>
+
+<section class="hero">
+  <div class="badge-pill">Visión Industrial</div>
+  <h1>Tu línea de producción, <em>con ojos que no se cansan.</em></h1>
+  <p>Visión por computadora entrenada para tu proceso específico. Conteo, inspección y control de calidad en tiempo real — sin latencia, sin personal dedicado, sin nubes externas.</p>
+  <div class="hero-actions">
+    <a href="index.html#contact" class="btn btn-primary">Solicitar demostración</a>
+    <a href="#features" class="btn btn-secondary">Ver capacidades</a>
+  </div>
+  <!-- ══════════════════════════════════════════════════════
+       IMAGEN HERO — VISIÓN INDUSTRIAL
+       Archivo destino : img/industrial-hero.jpg
+       Dimensiones     : 1960 × 860 px  |  72 dpi  |  JPG 85%
+       Contenido ideal : Línea de producción con conteo en tiempo real y
+                         bounding boxes activos. Usa vision-industrial.png como base.
+       Para activar    : Borra el div.ph y descomenta la línea <img>
+  ════════════════════════════════════════════════════════ -->
+  <div class="ph" style="width:100%;max-width:980px;margin:0 auto;aspect-ratio:16/7;border-radius:20px;">
+    🏭&nbsp; img/industrial-hero.jpg &nbsp;·&nbsp; 1960 × 860 px<br>
+    <small>Línea de producción con conteo activo — usa vision-industrial.png como base</small>
+  </div>
+  <!-- <img src="img/industrial-hero.jpg" alt="Visión Industrial AIDA" style="width:100%;max-width:980px;border-radius:20px;display:block;margin:0 auto;"> -->
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-eyebrow">Capacidades</div>
+  <h2 class="section-title">Lo que el sistema ve y hace.</h2>
+  <p class="section-sub">Cada sistema se entrena con imágenes de tu proceso. No hay configuración genérica — es tuyo.</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-img ph">🔢&nbsp; img/feat-conteo.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-conteo.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Conteo automatizado"> -->
+      <div class="feat-icon">🔢</div>
+      <div class="feat-title">Conteo automatizado en tiempo real</div>
+      <div class="feat-desc">Cuenta unidades, lotes, piezas o productos con precisión superior al 99%. Actualización en tiempo real sin detener la línea.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">🔍&nbsp; img/feat-defectos.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-defectos.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Detección de defectos"> -->
+      <div class="feat-icon">🔍</div>
+      <div class="feat-title">Detección de defectos</div>
+      <div class="feat-desc">Identifica rayones, roturas, deformaciones, manchas o ausencia de componentes en milisegundos. Alerta y puede activar rechazo automático.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">✅&nbsp; img/feat-calidad.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-calidad.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Control de calidad"> -->
+      <div class="feat-icon">✅</div>
+      <div class="feat-title">Control de calidad visual</div>
+      <div class="feat-desc">Verifica dimensiones, colores, etiquetas y presentación de producto. Clasifica automáticamente entre conforme y no conforme.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">📐&nbsp; img/feat-medicion.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-medicion.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Medición dimensional"> -->
+      <div class="feat-icon">📐</div>
+      <div class="feat-title">Medición dimensional</div>
+      <div class="feat-desc">Mide dimensiones de piezas o productos usando visión calibrada. Detecta variaciones fuera de tolerancia sin contacto físico.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">📊&nbsp; img/feat-dashboard-ind.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-dashboard-ind.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Dashboard industrial"> -->
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Dashboard de producción en tiempo real</div>
+      <div class="feat-desc">Panel con conteos, tasas de defecto, eficiencia por turno y alertas activas. Disponible desde cualquier dispositivo en tu red local.</div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-img ph">🎯&nbsp; img/feat-entrenamiento.jpg &nbsp;·&nbsp; 560 × 245 px</div>
+      <!-- <img src="img/feat-entrenamiento.jpg" class="feat-img" style="object-fit:cover;border-radius:8px;" alt="Entrenamiento personalizado"> -->
+      <div class="feat-icon">🎯</div>
+      <div class="feat-title">Entrenamiento personalizado</div>
+      <div class="feat-desc">El modelo se entrena con imágenes de tu proceso real. Puede reconocer cualquier elemento visual que necesites detectar, etiquetar o contar.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORES -->
+<section class="sectores" id="sectores">
+  <div class="section-eyebrow">Sectores</div>
+  <h2 class="section-title">Adaptado a tu industria.</h2>
+  <p class="section-sub">El sistema se entrena con tus productos, tu proceso y tus estándares de calidad.</p>
+  <div class="sec-grid">
+    <div class="sec-card"><div class="sec-icon">🏗️</div><div class="sec-label">Construcción y materiales</div><div class="sec-desc">Conteo de perfiles, bloques, tubos y materiales en almacén o despacho.</div></div>
+    <div class="sec-card"><div class="sec-icon">🍶</div><div class="sec-label">Alimentos y bebidas</div><div class="sec-desc">Inspección de envases, llenado, etiquetas y presentación.</div></div>
+    <div class="sec-card"><div class="sec-icon">⚙️</div><div class="sec-label">Manufactura</div><div class="sec-desc">Detección de defectos en piezas, ensamblaje y acabados.</div></div>
+    <div class="sec-card"><div class="sec-icon">💊</div><div class="sec-label">Farmacéutico</div><div class="sec-desc">Conteo de unidades, verificación de blísteres y etiquetado.</div></div>
+    <div class="sec-card"><div class="sec-icon">📦</div><div class="sec-label">Logística y distribución</div><div class="sec-desc">Verificación de pedidos, conteo de cajas y control de despacho.</div></div>
+    <div class="sec-card"><div class="sec-icon">🌾</div><div class="sec-label">Agroindustria</div><div class="sec-desc">Clasificación por tamaño, color y calidad de productos agrícolas.</div></div>
+  </div>
+</section>
+
+<!-- DESTACA -->
+<section class="destaca">
+  <div class="section-eyebrow">Ventajas técnicas</div>
+  <h2 class="section-title">Precisión de máquina, velocidad de producción.</h2>
+  <div class="d-grid">
+    <div class="d-card">
+      <div class="d-icon">⚡</div>
+      <h3>Cero latencia</h3>
+      <p>Procesamiento local en tiempo real. La detección ocurre en milisegundos, sin depender de internet ni de servidores remotos.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🎯</div>
+      <h3>Precisión superior al 99%</h3>
+      <p>El modelo entrenado con tus propios productos supera la precisión de cualquier solución genérica del mercado.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">🔄</div>
+      <h3>Sin detener la línea</h3>
+      <p>El sistema trabaja a la velocidad de tu producción. No requiere paradas ni cambios en el proceso existente.</p>
+    </div>
+    <div class="d-card">
+      <div class="d-icon">📷</div>
+      <h3>Compatible con cámaras industriales</h3>
+      <p>Funciona con cámaras IP estándar o cámaras industriales de alta resolución. Se adapta a tu infraestructura actual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMPLEMENTACIÓN -->
+<section id="implementacion">
+  <div class="section-eyebrow">Proceso</div>
+  <h2 class="section-title">De tu línea al sistema en tres pasos.</h2>
+  <p class="section-sub">Empezamos por entender tu proceso antes de escribir una sola línea de código.</p>
+  <div class="impl-steps">
+    <div class="impl-step">
+      <h3>Captura y análisis</h3>
+      <p>Visitamos tu instalación, analizamos el proceso y capturamos imágenes de tus productos. Definimos qué detectar, qué contar y qué rechazar.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Entrenamiento del modelo</h3>
+      <p>Entrenamos el modelo de visión con tus imágenes reales. Validamos la precisión con tu equipo de calidad antes de pasar a producción.</p>
+    </div>
+    <div class="impl-step">
+      <h3>Instalación y puesta en marcha</h3>
+      <p>Instalamos el hardware en tu línea, integramos con tu sistema existente y verificamos el funcionamiento en condiciones reales de producción.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <h2>¿Cuántos defectos pasan desapercibidos hoy?</h2>
+  <p>Cuéntanos tu proceso y te mostramos cómo el sistema puede detectarlos en tiempo real.</p>
+  <a href="index.html#contact" class="btn btn-white">Solicitar demostración</a>
+</section>
+
+<footer>
+  <div class="footer-logo">AIDA · A.I. Deployment Apps</div>
+  <div class="footer-links">
+    <a href="index.html">Inicio</a>
+    <a href="videovigilancia.html">Videovigilancia Inteligente</a>
+    <a href="aiot.html">Automatización AIoT</a>
+    <a href="rpa.html">Automatización Administrativa</a>
+    <a href="vision-industrial.html">Visión Industrial</a>
+  </div>
+  <div class="footer-copy">© 2026 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+</footer>
+</body>
+</html>
