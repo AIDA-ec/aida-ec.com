@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="AIDA · AI Deployment Analytics — Automatización de procesos con Visión por Computadora, Agentes de IA y AIoT.">
+<title>AIDA · AI Deployment Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --white:#ffffff;--surface:#F5F5F7;--surface2:#E8E8ED;
+  --text:#1D1D1F;--text2:#6E6E73;--text3:#86868B;
+  --accent:#0071E3;--accent-hover:#0077ED;
+  --gold:#8A7A62;--gold-light:#C8B89A;
+  --border:#D2D2D7;--border-light:#E8E8ED;
+  --deep:#1C2B3A;--deep2:#243447;--deep3:#2E4058;
+  --display:'Space Grotesk',system-ui,sans-serif;
+  --body:'Inter',system-ui,sans-serif;
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--text);font-family:var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:0 5vw;height:52px;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);}
+.nav-logo{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em;}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;align-items:center;gap:1.75rem;list-style:none;}
+.nav-links a{font-size:0.82rem;font-weight:500;color:var(--text2);text-decoration:none;transition:color 0.15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{background:var(--accent);color:#fff !important;padding:0.42rem 1.1rem;border-radius:20px;transition:background 0.15s !important;}
+.nav-cta:hover{background:var(--accent-hover) !important;}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+.lang-btn{font-size:0.72rem;font-weight:500;padding:0.25rem 0.65rem;background:transparent;color:var(--text2);border:none;cursor:pointer;transition:all 0.15s;font-family:var(--body);}
+.lang-btn.active{background:var(--text);color:#fff;}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;flex-direction:column;gap:5px;}
+.hamburger span{display:block;width:20px;height:1.5px;background:var(--text);margin:4px 0;}
+.mobile-menu{display:none;position:fixed;inset:0;top:52px;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--text);text-decoration:none;}
+.mobile-lang{display:flex;gap:1.5rem;margin-top:0.5rem;}
+.mobile-lang button{font-family:var(--body);font-size:1rem;font-weight:500;background:none;border:none;color:var(--text2);cursor:pointer;}
+.mobile-lang button.active{color:var(--accent);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:7rem 5vw 4rem;background:linear-gradient(180deg,#fff 60%,#F5F5F7 100%);}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,113,227,0.08);color:var(--accent);font-size:0.78rem;font-weight:600;padding:0.38rem 1rem;border-radius:20px;margin-bottom:1.75rem;letter-spacing:0.03em;}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+.hero h1{font-family:var(--display);font-size:clamp(2.4rem,6vw,4.4rem);font-weight:700;line-height:1.06;letter-spacing:-0.035em;color:var(--text);margin-bottom:1.25rem;max-width:18ch;}
+.hero h1 em{font-style:normal;color:var(--accent);}
+.hero-sub{font-size:clamp(1rem,2vw,1.15rem);color:var(--text2);line-height:1.65;max-width:46ch;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:3.5rem;}
+.btn{display:inline-block;font-family:var(--body);font-size:0.9rem;font-weight:500;padding:0.75rem 1.75rem;border-radius:24px;text-decoration:none;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-primary{background:var(--accent);color:#fff;}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:var(--surface2);}
+.btn-white{background:#fff;color:var(--accent);font-weight:600;}
+.hero-img{width:100%;max-width:900px;}
+.hero-img img{width:100%;border-radius:20px;display:block;box-shadow:0 20px 60px rgba(0,0,0,0.1);}
+
+/* SECTIONS */
+.sw{padding:6rem 5vw;}
+.sw.gray{background:var(--surface);}
+.sw.dark{background:var(--deep);}
+.section-eyebrow{font-size:0.75rem;font-weight:600;color:var(--accent);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.6rem;}
+.sw.dark .section-eyebrow{color:#93C5FD;}
+.section-title{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--text);margin-bottom:1rem;}
+.sw.dark .section-title{color:#F0F6FF;}
+.section-sub{font-size:1rem;color:var(--text2);line-height:1.65;max-width:52ch;margin-bottom:3rem;}
+.sw.dark .section-sub{color:#94A3B8;}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-text p{font-size:1rem;color:var(--text2);line-height:1.8;margin-bottom:1rem;}
+.about-text p:last-child{margin-bottom:0;}
+.about-pillars{display:flex;flex-direction:column;gap:1px;background:var(--border-light);}
+.pillar{background:var(--white);padding:1.25rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.pillar-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px;}
+.pillar-text strong{display:block;font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.2rem;}
+.pillar-text span{font-size:0.83rem;color:var(--text2);line-height:1.55;}
+
+/* SOLUCIONES */
+.sol-grid{display:flex;flex-direction:column;gap:1.25rem;}
+.sol-card{background:var(--white);border-radius:var(--radius);border:1px solid var(--border-light);overflow:hidden;transition:all 0.2s;display:grid;grid-template-columns:2fr 3fr;}
+.sol-card:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,0.08);border-color:var(--border);}
+.sol-card img{width:100%;height:100%;object-fit:cover;display:block;}
+.sol-card-body{padding:2rem 2.5rem;display:flex;flex-direction:column;gap:0.6rem;justify-content:center;}
+.sol-num{font-size:0.7rem;font-weight:600;color:var(--text3);letter-spacing:0.1em;}
+.sol-card h3{font-family:var(--display);font-size:1.15rem;font-weight:700;letter-spacing:-0.02em;color:var(--text);}
+.sol-card p{font-size:0.85rem;color:var(--text2);line-height:1.65;flex:1;}
+.sol-tags{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:0.25rem;}
+.sol-tag{font-size:0.72rem;font-weight:500;color:var(--accent);background:rgba(0,113,227,0.07);border-radius:20px;padding:0.2rem 0.7rem;}
+
+/* WHY */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.why-statement{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;letter-spacing:-0.025em;line-height:1.2;color:var(--text);margin-bottom:1.25rem;}
+.why-statement em{font-style:normal;color:var(--accent);}
+.why-body{font-size:0.95rem;color:var(--text2);line-height:1.75;}
+.why-points{display:flex;flex-direction:column;}
+.why-point{display:flex;gap:1.1rem;padding:1.1rem 0;border-bottom:1px solid var(--border-light);align-items:flex-start;}
+.why-point:first-child{border-top:1px solid var(--border-light);}
+.why-icon{width:34px;height:34px;border-radius:9px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.why-pt strong{display:block;font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.15rem;}
+.why-pt span{font-size:0.82rem;color:var(--text2);line-height:1.55;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:3rem;}
+.contact-info p{font-size:0.95rem;color:var(--text2);line-height:1.75;margin-bottom:2rem;}
+.contact-links{display:flex;flex-direction:column;}
+.contact-link{display:flex;align-items:center;gap:0.9rem;text-decoration:none;color:var(--text);font-size:0.88rem;font-weight:500;padding:0.9rem 0;border-bottom:1px solid var(--border-light);transition:color 0.15s;}
+.contact-link:hover{color:var(--accent);}
+.c-icon{width:34px;height:34px;border-radius:9px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;}
+.form-wrap{background:var(--surface);border-radius:var(--radius);padding:2rem;border:1px solid var(--border-light);}
+.form-field{display:flex;flex-direction:column;gap:0.38rem;margin-bottom:1rem;}
+.form-label{font-size:0.76rem;font-weight:600;color:var(--text);letter-spacing:0.02em;}
+.form-input{background:#fff;border:1px solid var(--border);color:var(--text);padding:0.72rem 1rem;border-radius:var(--radius-sm);font-family:var(--body);font-size:0.88rem;outline:none;transition:border-color 0.15s;width:100%;}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,113,227,0.1);}
+.form-input::placeholder{color:var(--text3);}
+textarea.form-input{resize:vertical;min-height:6.5rem;}
+.form-note{font-size:0.75rem;color:var(--text3);margin-top:0.5rem;}
+
+/* CTA BAND */
+.cta-band{background:var(--accent);text-align:center;padding:5rem 5vw;}
+.cta-band h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-0.025em;color:#fff;margin-bottom:0.85rem;}
+.cta-band p{font-size:1rem;color:rgba(255,255,255,0.82);margin-bottom:2rem;max-width:42ch;margin-left:auto;margin-right:auto;}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border-light);padding:2rem 5vw;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:var(--display);font-size:0.9rem;font-weight:700;color:var(--text);}
+.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links a{font-size:0.78rem;color:var(--text3);text-decoration:none;transition:color 0.15s;}
+.footer-links a:hover{color:var(--text);}
+.footer-copy{font-size:0.73rem;color:var(--text3);}
+
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  .about-grid,.why-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .sol-card{grid-template-columns:1fr;display:flex;flex-direction:column;}
+  .sol-card img{aspect-ratio:16/7;}
+  .sw{padding:4rem 5vw;}
+  footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">AIDA<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav.about">Nosotros</a></li>
+    <li><a href="#solutions" data-i18n="nav.sol">Soluciones</a></li>
+    <li><a href="#why" data-i18n="nav.why">Por qué AIDA</a></li>
+    <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Hablemos</a></li>
+    <li>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mob">
+  <a href="#about" data-i18n="nav.about">Nosotros</a>
+  <a href="#solutions" data-i18n="nav.sol">Soluciones</a>
+  <a href="#why" data-i18n="nav.why">Por qué AIDA</a>
+  <a href="#contact" data-i18n="nav.contact">Hablemos</a>
+  <div class="mobile-lang">
+    <button class="active" onclick="setLang('es')">ES</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow" data-i18n="hero.ey">AI Deployment Analytics</div>
+  <h1 data-i18n-h="hero.h1">Automatización inteligente, <em>bajo tu control.</em></h1>
+  <p class="hero-sub" data-i18n="hero.sub">AIDA despliega sistemas de inteligencia artificial que trabajan por ti — en tu infraestructura, sin nubes ajenas.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn btn-primary" data-i18n="hero.c1">Habla con un especialista</a>
+    <a href="#solutions" class="btn btn-secondary" data-i18n="hero.c2">Ver soluciones</a>
+  </div>
+  <div class="hero-img">
+    <img src="img/hero.jpg" alt="AIDA — AI Deployment Analytics">
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="sw gray" id="about">
+  <div class="section-eyebrow" data-i18n="ab.ey">Quiénes somos</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title" data-i18n="ab.t">AIDA — AI Deployment Analytics</h2>
+      <p data-i18n="ab.p1">Somos una empresa especializada en el despliegue de inteligencia artificial aplicada. Diseñamos, desarrollamos e implementamos sistemas de IA que automatizan procesos reales en empresas reales.</p>
+      <p data-i18n="ab.p2">Toda nuestra tecnología corre localmente en tu infraestructura. Tu información nunca sale de tu red, el sistema funciona sin internet y sigue operando aunque se vaya la luz.</p>
+    </div>
+    <div class="about-pillars">
+      <div class="pillar">
+        <div class="pillar-icon">🏗️</div>
+        <div class="pillar-text">
+          <strong data-i18n="ab.p1t">Edge AI — sin nubes ajenas</strong>
+          <span data-i18n="ab.p1d">La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.</span>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🔒</div>
+        <div class="pillar-text">
+          <strong data-i18n="ab.p2t">Edge AI — sin nubes ajenas</strong>
+          <span data-i18n="ab.p2d">La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.</span>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">⚡</div>
+        <div class="pillar-text">
+          <strong data-i18n="ab.p3t">Máxima velocidad, sin latencia</strong>
+          <span data-i18n="ab.p3d">Al procesar localmente, la respuesta es inmediata. Sin depender de servidores remotos ni de la velocidad del internet.</span>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-icon">🔋</div>
+        <div class="pillar-text">
+          <strong data-i18n="ab.p4t">Opera sin internet ni electricidad</strong>
+          <span data-i18n="ab.p4d">Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de red o energía.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUCIONES -->
+<section class="sw" id="solutions">
+  <div class="section-eyebrow" data-i18n="sl.ey">Soluciones</div>
+  <h2 class="section-title" data-i18n="sl.t">IA que hace trabajo real.</h2>
+  <p class="section-sub" data-i18n="sl.sub">Tres herramientas de automatización, todas corriendo localmente en tu infraestructura y configuradas a la medida de tu operación.</p>
+
+  <div class="sol-grid">
+
+    <div class="sol-card">
+      <img src="img/sol-vigilancia.jpg" alt="Visión por Computadora">
+      <div class="sol-card-body">
+        <div class="sol-num">01</div>
+        <h3 data-i18n="s1.t">Visión por Computadora</h3>
+        <p data-i18n="s1.d">AIDA construye AI NVRs hechos a la medida que se integran con agentes que automatizan trabajo real. Funcionan en tu red local y continúan operando a pesar de interrupciones en internet. Con equipos de alta eficiencia energética para facilitar respaldo eléctrico — la seguridad no para, tu operación no para, el trabajo continúa. Desde 1 cámara que clasifique y cuente ítems en una línea de producción, detección de velocidad, proximidad, realidad aumentada, y mucho más.</p>
+        <div class="sol-tags">
+          <span class="sol-tag" data-i18n="s1.t1">Videovigilancia</span>
+          <span class="sol-tag" data-i18n="s1.t2">EPP</span>
+          <span class="sol-tag" data-i18n="s1.t3">OCR</span>
+          <span class="sol-tag" data-i18n="s1.t4">Analítica</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-card">
+      <img src="img/sol-aiot.jpg" alt="Agentes de IA">
+      <div class="sol-card-body">
+        <div class="sol-num">02</div>
+        <h3 data-i18n="s2.t">Agentes de IA</h3>
+        <p data-i18n="s2.d">Agentes inteligentes que automatizan procesos administrativos y operativos — leen correos, clasifican documentos, llenan formularios, gestionan aprobaciones y responden preguntas sobre tu operación en lenguaje natural.</p>
+        <div class="sol-tags">
+          <span class="sol-tag" data-i18n="s2.t1">RPA</span>
+          <span class="sol-tag" data-i18n="s2.t2">Documentos</span>
+          <span class="sol-tag" data-i18n="s2.t3">Flujos</span>
+          <span class="sol-tag" data-i18n="s2.t4">LLM local</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol-card">
+      <img src="img/sol-industrial.jpg" alt="AIoT">
+      <div class="sol-card-body">
+        <div class="sol-num">03</div>
+        <h3 data-i18n="s3.t">AIoT</h3>
+        <p data-i18n="s3.d">Conectamos sensores, actuadores y el mundo físico con un agente de IA que interpreta datos y toma decisiones autónomas. Combustible, agua, energía, logística y líneas de producción — sin costo de datos celulares.</p>
+        <div class="sol-tags">
+          <span class="sol-tag" data-i18n="s3.t1">Sensores</span>
+          <span class="sol-tag" data-i18n="s3.t2">LoRa</span>
+          <span class="sol-tag" data-i18n="s3.t3">Visión Industrial</span>
+          <span class="sol-tag" data-i18n="s3.t4">Automatización</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- POR QUÉ AIDA -->
+<section class="sw gray" id="why">
+  <div class="section-eyebrow" data-i18n="wy.ey">Por qué AIDA</div>
+  <div class="why-grid">
+    <div>
+      <div class="why-statement" data-i18n-h="wy.st">La IA más poderosa es la que <em>no depende de nadie más.</em></div>
+      <p class="why-body" data-i18n="wy.b">Importamos, instalamos y configuramos todo. Tú empiezas a operar desde el primer día y pagas un costo mensual fijo mientras la solución funciona perfectamente — sin sorpresas, sin riesgo.</p>
+    </div>
+    <div class="why-points">
+      <div class="why-point">
+        <div class="why-icon">🏗️</div>
+        <div class="why-pt"><strong data-i18n="wy.1t">Costo mensual fijo</strong><span data-i18n="wy.1d">Sin licencias adicionales ni costos por feature. Un solo pago mensual que cubre todo.</span></div>
+      </div>
+      <div class="why-point">
+        <div class="why-icon">💳</div>
+        <div class="why-pt"><strong data-i18n="wy.2t">Tu información nunca sale de tu red</strong><span data-i18n="wy.2d">Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.</span></div>
+      </div>
+      <div class="why-point">
+        <div class="why-icon">🔒</div>
+        <div class="why-pt"><strong data-i18n="wy.3t">Tu información nunca sale de tu red</strong><span data-i18n="wy.3d">Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.</span></div>
+      </div>
+      <div class="why-point">
+        <div class="why-icon">📶</div>
+        <div class="why-pt"><strong data-i18n="wy.4t">Opera sin internet</strong><span data-i18n="wy.4d">Corte de fibra, falla del router — tus sistemas siguen funcionando sin interrupciones.</span></div>
+      </div>
+      <div class="why-point">
+        <div class="why-icon">🔋</div>
+        <div class="why-pt"><strong data-i18n="wy.5t">Resiliencia energética</strong><span data-i18n="wy.5d">Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de luz.</span></div>
+      </div>
+      <div class="why-point">
+        <div class="why-icon">🛠️</div>
+        <div class="why-pt"><strong data-i18n="wy.6t">Hardware, garantía y soporte incluidos</strong><span data-i18n="wy.6d">Vida útil, actualizaciones y soporte técnico presencial son responsabilidad de AIDA.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2 data-i18n="cta.t">¿Listo para automatizar tu operación?</h2>
+  <p data-i18n="cta.sub">Cuéntanos qué proceso quieres automatizar y te mostramos cómo hacerlo.</p>
+  <a href="#contact" class="btn btn-white" data-i18n="cta.btn">Habla con un especialista</a>
+</section>
+
+<!-- CONTACTO -->
+<section class="sw" id="contact">
+  <div class="section-eyebrow" data-i18n="ct.ey">Contacto</div>
+  <h2 class="section-title" data-i18n="ct.t">Hablemos de tu proyecto.</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p data-i18n="ct.sub">Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver — te respondemos el mismo día.</p>
+      <div class="contact-links">
+        <a href="mailto:mario@aida-ec.com" class="contact-link"><div class="c-icon">✉️</div>mario@aida-ec.com</a>
+        <a href="https://wa.me/593987234527" target="_blank" rel="noopener" class="contact-link"><div class="c-icon">💬</div>+593 98 723 4527</a>
+        <a href="#" class="contact-link"><div class="c-icon">📍</div>Guayaquil, Ecuador</a>
+      </div>
+    </div>
+    <div class="form-wrap">
+      <div class="form-field">
+        <label class="form-label" data-i18n="fm.n">Nombre</label>
+        <input type="text" class="form-input" name="name" data-ph="fm.np" placeholder="Tu nombre o empresa">
+      </div>
+      <div class="form-field">
+        <label class="form-label" data-i18n="fm.e">Correo</label>
+        <input type="email" class="form-input" name="email" placeholder="tu@correo.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label" data-i18n="fm.m">Mensaje</label>
+        <textarea class="form-input" name="msg" data-ph="fm.mp" placeholder="¿Qué proceso te gustaría automatizar?"></textarea>
+      </div>
+      <button class="btn btn-primary" id="submitBtn" style="width:100%" data-i18n="fm.s">Enviar mensaje</button>
+      <p class="form-note" id="formNote" style="display:none;"></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AIDA · AI Deployment Analytics</div>
+  <div class="footer-links">
+    <a href="#about" data-i18n="nav.about">Nosotros</a>
+    <a href="#solutions" data-i18n="nav.sol">Soluciones</a>
+    <a href="#why" data-i18n="nav.why">Por qué AIDA</a>
+    <a href="#contact" data-i18n="nav.contact">Contacto</a>
+  </div>
+  <div class="footer-copy">© 2026 A.I. Deployment Analytics S.A.S. · Ecuador</div>
+</footer>
+
+<script>
+const T={
+es:{
+  'nav.about':'Nosotros','nav.sol':'Soluciones','nav.why':'Por qué AIDA','nav.contact':'Hablemos',
+  'hero.ey':'AI Deployment Analytics',
+  'hero.h1':'Automatización inteligente, <em>bajo tu control.</em>',
+  'hero.sub':'AIDA despliega sistemas de inteligencia artificial que trabajan por ti — en tu infraestructura, sin nubes ajenas.',
+  'hero.c1':'Habla con un especialista','hero.c2':'Ver soluciones',
+  'ab.ey':'Quiénes somos','ab.t':'AIDA — AI Deployment Analytics',
+  'ab.p1':'Somos una empresa especializada en el despliegue de inteligencia artificial aplicada. Diseñamos, desarrollamos e implementamos sistemas de IA que automatizan procesos reales en empresas reales.',
+  'ab.p2':'Toda nuestra tecnología corre localmente en tu infraestructura. Tu información nunca sale de tu red, el sistema funciona sin internet y sigue operando aunque se vaya la luz.',
+  'ab.p1t':'Edge AI — sin nubes ajenas','ab.p1d':'La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.',
+  'ab.p2t':'Edge AI — sin nubes ajenas','ab.p2d':'La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.',
+  'ab.p3t':'Máxima velocidad, sin latencia','ab.p3d':'Al procesar localmente, la respuesta es inmediata. Sin depender de servidores remotos ni de la velocidad del internet.',
+  'ab.p4t':'Opera sin internet ni electricidad','ab.p4d':'Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de red o energía.',
+  'sl.ey':'Soluciones','sl.t':'IA que hace trabajo real.',
+  'sl.sub':'Tres herramientas de automatización, todas corriendo localmente en tu infraestructura y configuradas a la medida de tu operación.',
+  's1.t':'Visión por Computadora','s1.d':'AIDA construye AI NVRs hechos a la medida que se integran con agentes que automatizan trabajo real. Funcionan en tu red local y continúan operando a pesar de interrupciones en internet. Con equipos de alta eficiencia energética para facilitar respaldo eléctrico — la seguridad no para, tu operación no para, el trabajo continúa. Desde 1 cámara que clasifique y cuente ítems en una línea de producción, detección de velocidad, proximidad, realidad aumentada, y mucho más.',
+  's1.t1':'Videovigilancia','s1.t2':'EPP','s1.t3':'OCR','s1.t4':'Analítica',
+  's2.t':'Agentes de IA','s2.d':'Agentes inteligentes que automatizan procesos administrativos y operativos — leen correos, clasifican documentos, llenan formularios, gestionan aprobaciones y responden preguntas sobre tu operación en lenguaje natural.',
+  's2.t1':'RPA','s2.t2':'Documentos','s2.t3':'Flujos','s2.t4':'LLM local',
+  's3.t':'AIoT','s3.d':'Conectamos sensores, actuadores y el mundo físico con un agente de IA que interpreta datos y toma decisiones autónomas. Combustible, agua, energía, logística y líneas de producción — sin costo de datos celulares.',
+  's3.t1':'Sensores','s3.t2':'LoRa','s3.t3':'Visión Industrial','s3.t4':'Automatización',
+  'wy.ey':'Por qué AIDA','wy.st':'La IA más poderosa es la que <em>no depende de nadie más.</em>',
+  'wy.b':'Importamos, instalamos y configuramos todo. Tú empiezas a operar desde el primer día y pagas un costo mensual fijo mientras la solución funciona perfectamente — sin sorpresas, sin riesgo.',
+  'wy.1t':'Costo mensual fijo','wy.1d':'Sin licencias adicionales ni costos por feature. Un solo pago mensual que cubre todo.',
+  'wy.2t':'Tu información nunca sale de tu red','wy.2d':'Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.',
+  'wy.3t':'Tu información nunca sale de tu red','wy.3d':'Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.',
+  'wy.4t':'Opera sin internet','wy.4d':'Corte de fibra, falla del router — tus sistemas siguen funcionando sin interrupciones.',
+  'wy.5t':'Resiliencia energética','wy.5d':'Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de luz.',
+  'wy.6t':'Hardware, garantía y soporte incluidos','wy.6d':'Vida útil, actualizaciones y soporte técnico presencial son responsabilidad de AIDA.',
+  'cta.t':'¿Listo para automatizar tu operación?','cta.sub':'Cuéntanos qué proceso quieres automatizar y te mostramos cómo hacerlo.','cta.btn':'Habla con un especialista',
+  'ct.ey':'Contacto','ct.t':'Hablemos de tu proyecto.',
+  'ct.sub':'Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver — te respondemos el mismo día.',
+  'fm.n':'Nombre','fm.np':'Tu nombre o empresa','fm.e':'Correo','fm.m':'Mensaje','fm.mp':'¿Qué proceso te gustaría automatizar?','fm.s':'Enviar mensaje'
+},
+en:{
+  'nav.about':'About','nav.sol':'Solutions','nav.why':'Why AIDA','nav.contact':"Let's talk",
+  'hero.ey':'AI Deployment Analytics',
+  'hero.h1':'Intelligent automation, <em>under your control.</em>',
+  'hero.sub':'AIDA deploys AI systems that work for you — in your infrastructure, without third-party clouds.',
+  'hero.c1':'Talk to a specialist','hero.c2':'See solutions',
+  'ab.ey':'Who we are','ab.t':'AIDA — AI Deployment Analytics',
+  'ab.p1':'We are a company specialized in applied AI deployment. We design, develop and implement AI systems that automate real processes in real companies.',
+  'ab.p2':'All our technology runs locally in your infrastructure. Your data never leaves your network, the system works without internet and keeps operating even during power outages.',
+  'ab.p1t':'Zero upfront investment','ab.p1d':'AIDA imports, installs and configures everything. The client starts operating without spending on hardware or software.',
+  'ab.p2t':'Edge AI — no third-party clouds','ab.p2d':'The highest information security configuration. No data ever leaves your infrastructure.',
+  'ab.p3t':'Maximum speed, zero latency','ab.p3d':'Processing locally means instant response. No dependence on remote servers or internet speed.',
+  'ab.p4t':'Works without internet or electricity','ab.p4d':'Low-power solutions backed by UPS. Your operation never stops due to network or power outages.',
+  'sl.ey':'Solutions','sl.t':'AI that does real work.',
+  'sl.sub':'Three automation tools, all running locally in your infrastructure and configured to fit your specific operation.',
+  's1.t':'Computer Vision','s1.d':'AIDA builds custom AI NVRs that integrate with agents automating real work. They run on your local network and keep operating despite internet outages. Built with high energy efficiency hardware for easy power backup — security never stops, your operation never stops, work continues. From a single camera that classifies and counts items on a production line, to speed detection, proximity sensing, augmented reality, and much more.',
+  's1.t1':'Video Surveillance','s1.t2':'PPE','s1.t3':'OCR','s1.t4':'Analytics',
+  's2.t':'AI Agents','s2.d':'Intelligent agents that automate administrative and operational processes — reading emails, classifying documents, filling forms, managing approvals and answering questions about your operation in natural language.',
+  's2.t1':'RPA','s2.t2':'Documents','s2.t3':'Workflows','s2.t4':'Local LLM',
+  's3.t':'AIoT','s3.d':'We connect sensors, actuators and the physical world with an AI agent that interprets data and makes autonomous decisions. Fuel, water, energy, logistics and production lines — at zero cellular data cost.',
+  's3.t1':'Sensors','s3.t2':'LoRa','s3.t3':'Industrial Vision','s3.t4':'Automation',
+  'wy.ey':'Why AIDA','wy.st':'The most powerful AI is the one that <em>depends on no one else.</em>',
+  'wy.b':'We import, install and configure everything. You start operating from day one and pay a fixed monthly fee while the solution works perfectly — no surprises, no risk.',
+  'wy.1t':'Fixed monthly cost','wy.1d':'No additional licenses or per-feature costs. One monthly payment that covers everything.',
+  'wy.2t':'Your data never leaves your network','wy.2d':'100% local Edge AI. The highest information security configuration in AI-powered applications.',
+  'wy.3t':'Your data never leaves your network','wy.3d':'100% local Edge AI. The highest information security configuration in AI-powered applications.',
+  'wy.4t':'Works without internet','wy.4d':'Fiber cut, router failure — your systems keep running without interruption.',
+  'wy.5t':'Energy resilience','wy.5d':'Low-power solutions backed by UPS. Your operation never stops due to power outages.',
+  'wy.6t':'Hardware, warranty and support included','wy.6d':'Hardware lifespan, updates and on-site technical support are AIDA\'s responsibility.',
+  'cta.t':'Ready to automate your operation?','cta.sub':'Tell us which process you want to automate and we\'ll show you how.','cta.btn':'Talk to a specialist',
+  'ct.ey':'Contact','ct.t':"Let's talk about your project.",
+  'ct.sub':'Every solution starts with a conversation. Tell us which process you want to automate — we respond the same day.',
+  'fm.n':'Name','fm.np':'Your name or company','fm.e':'Email','fm.m':'Message','fm.mp':'Which process would you like to automate?','fm.s':'Send message'
+}};
+
+let lang='es';
+function setLang(l){
+  lang=l;const t=T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(t[k])el.textContent=t[k];});
+  document.querySelectorAll('[data-i18n-h]').forEach(el=>{const k=el.getAttribute('data-i18n-h');if(t[k])el.innerHTML=t[k];});
+  document.querySelectorAll('[data-ph]').forEach(el=>{const k=el.getAttribute('data-ph');if(t[k])el.placeholder=t[k];});
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
+  document.querySelectorAll('.mobile-lang button').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
+  document.documentElement.lang=l;
+}
+
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mob');
+ham.addEventListener('click',()=>mob.classList.toggle('open'));
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});mob.classList.remove('open');}
+}));
+
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const name=document.querySelector('[name="name"]').value.trim();
+  const email=document.querySelector('[name="email"]').value.trim();
+  const msg=document.querySelector('[name="msg"]').value.trim();
+  const note=document.getElementById('formNote');
+  if(!name||!email||!msg){
+    note.textContent=lang==='es'?'Por favor completa todos los campos.':'Please fill in all fields.';
+    note.style.display='block';note.style.color='#E34850';return;
+  }
+  const text=lang==='es'?`Hola AIDA, soy ${name} (${email}).\n\n${msg}`:`Hello AIDA, I'm ${name} (${email}).\n\n${msg}`;
+  window.open(`https://wa.me/593987234527?text=${encodeURIComponent(text)}`,'_blank');
+  note.textContent=lang==='es'?'Abriendo WhatsApp...':'Opening WhatsApp...';
+  note.style.display='block';note.style.color='#6E6E73';
+});
+</script>
+</body>
+</html>
