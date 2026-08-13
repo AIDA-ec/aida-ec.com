@@ -144,6 +144,15 @@ footer{background:var(--surface);border-top:1px solid var(--border-light);paddin
   .sw{padding:4rem 5vw;}
   footer{flex-direction:column;align-items:flex-start;}
 }
+
+/* UNIFIED SECTION */
+.unified-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.unified-text{display:flex;flex-direction:column;gap:1rem;}
+.unified-text .section-eyebrow{margin-bottom:0;}
+.unified-text .section-title{margin-bottom:0;}
+.unified-text p{font-size:0.97rem;color:var(--text2);line-height:1.8;}
+.unified-points{display:flex;flex-direction:column;}
+@media(max-width:768px){.unified-grid{grid-template-columns:1fr;gap:2.5rem;}}
 </style>
 </head>
 <body>
@@ -154,7 +163,6 @@ footer{background:var(--surface);border-top:1px solid var(--border-light);paddin
   <ul class="nav-links">
     <li><a href="#about" data-i18n="nav.about">Nosotros</a></li>
     <li><a href="#solutions" data-i18n="nav.sol">Soluciones</a></li>
-    <li><a href="#why" data-i18n="nav.why">Por qué AIDA</a></li>
     <li><a href="#contact" class="nav-cta" data-i18n="nav.contact">Hablemos</a></li>
     <li>
       <div class="lang-toggle">
@@ -169,7 +177,6 @@ footer{background:var(--surface);border-top:1px solid var(--border-light);paddin
 <div class="mobile-menu" id="mob">
   <a href="#about" data-i18n="nav.about">Nosotros</a>
   <a href="#solutions" data-i18n="nav.sol">Soluciones</a>
-  <a href="#why" data-i18n="nav.why">Por qué AIDA</a>
   <a href="#contact" data-i18n="nav.contact">Hablemos</a>
   <div class="mobile-lang">
     <button class="active" onclick="setLang('es')">ES</button>
@@ -191,43 +198,35 @@ footer{background:var(--surface);border-top:1px solid var(--border-light);paddin
   </div>
 </section>
 
-<!-- NOSOTROS -->
+<!-- NOSOTROS + POR QUÉ AIDA -->
 <section class="sw gray" id="about">
-  <div class="section-eyebrow" data-i18n="ab.ey">Quiénes somos</div>
-  <div class="about-grid">
-    <div class="about-text">
-      <h2 class="section-title" data-i18n="ab.t">AIDA — AI Deployment Analytics</h2>
-      <p data-i18n="ab.p1">Somos una empresa especializada en el despliegue de inteligencia artificial aplicada. Diseñamos, desarrollamos e implementamos sistemas de IA que automatizan procesos reales en empresas reales.</p>
-      <p data-i18n="ab.p2">Toda nuestra tecnología corre localmente en tu infraestructura. Tu información nunca sale de tu red, el sistema funciona sin internet y sigue operando aunque se vaya la luz.</p>
+  <div class="unified-grid">
+    <div class="unified-text">
+      <div class="section-eyebrow" data-i18n="ab.ey">Quiénes somos · Por qué AIDA</div>
+      <h2 class="section-title" data-i18n="wy.st2">La IA más poderosa es la que no depende de nadie más.</h2>
+      <p data-i18n="ab.p1">Somos una empresa especializada en el despliegue de inteligencia artificial aplicada. Diseñamos, desarrollamos e implementamos sistemas de IA que automatizan procesos reales — toda nuestra tecnología corre localmente en tu infraestructura, sin nubes ajenas.</p>
+      <p data-i18n="wy.b">Importamos, instalamos y configuramos todo. Tú empiezas a operar desde el primer día.</p>
     </div>
-    <div class="about-pillars">
-      <div class="pillar">
-        <div class="pillar-icon">🏗️</div>
-        <div class="pillar-text">
-          <strong data-i18n="ab.p1t">Edge AI — sin nubes ajenas</strong>
-          <span data-i18n="ab.p1d">La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.</span>
-        </div>
+    <div class="unified-points">
+      <div class="why-point">
+        <div class="why-icon">🖥️</div>
+        <div class="why-pt"><strong data-i18n="wy.1t">Edge AI — sin nubes ajenas</strong><span data-i18n="wy.1d">Todo el procesamiento ocurre en tu infraestructura. La más alta configuración de seguridad de la información — ningún dato sale de tu red.</span></div>
       </div>
-      <div class="pillar">
-        <div class="pillar-icon">🔒</div>
-        <div class="pillar-text">
-          <strong data-i18n="ab.p2t">Edge AI — sin nubes ajenas</strong>
-          <span data-i18n="ab.p2d">La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.</span>
-        </div>
+      <div class="why-point">
+        <div class="why-icon">⚡</div>
+        <div class="why-pt"><strong data-i18n="wy.2t">Máxima velocidad, sin latencia</strong><span data-i18n="wy.2d">Al procesar localmente, la respuesta es inmediata. Sin esperar servidores remotos ni depender del internet.</span></div>
       </div>
-      <div class="pillar">
-        <div class="pillar-icon">⚡</div>
-        <div class="pillar-text">
-          <strong data-i18n="ab.p3t">Máxima velocidad, sin latencia</strong>
-          <span data-i18n="ab.p3d">Al procesar localmente, la respuesta es inmediata. Sin depender de servidores remotos ni de la velocidad del internet.</span>
-        </div>
+      <div class="why-point">
+        <div class="why-icon">📶</div>
+        <div class="why-pt"><strong data-i18n="wy.3t">Funciona sin internet</strong><span data-i18n="wy.3d">Corte de fibra, falla del router — tus sistemas siguen funcionando sin interrupciones.</span></div>
       </div>
-      <div class="pillar">
-        <div class="pillar-icon">🔋</div>
-        <div class="pillar-text">
-          <strong data-i18n="ab.p4t">Opera sin internet ni electricidad</strong>
-          <span data-i18n="ab.p4d">Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de red o energía.</span>
-        </div>
+      <div class="why-point">
+        <div class="why-icon">🔋</div>
+        <div class="why-pt"><strong data-i18n="wy.4t">Resiliencia energética</strong><span data-i18n="wy.4d">Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de luz.</span></div>
+      </div>
+      <div class="why-point">
+        <div class="why-icon">🛠️</div>
+        <div class="why-pt"><strong data-i18n="wy.5t">Hardware, garantía y soporte incluidos</strong><span data-i18n="wy.5d">Vida útil, actualizaciones y soporte técnico presencial son responsabilidad de AIDA.</span></div>
       </div>
     </div>
   </div>
@@ -276,7 +275,7 @@ footer{background:var(--surface);border-top:1px solid var(--border-light);paddin
       <div class="sol-card-body">
         <div class="sol-num">03</div>
         <h3 data-i18n="s3.t">AIoT</h3>
-        <p data-i18n="s3.d">Conectamos sensores, actuadores y el mundo físico con un agente de IA que interpreta datos y toma decisiones autónomas. Combustible, agua, energía, logística y líneas de producción.</p>
+        <p data-i18n="s3.d">Conectamos sensores, actuadores y el mundo físico con un agente de IA que interpreta datos y toma decisiones autónomas. Combustible, agua, energía, logística y líneas de producción — sin costo de datos celulares.</p>
         <div class="sol-tags">
           <span class="sol-tag" data-i18n="s3.t1">Sensores</span>
           <span class="sol-tag" data-i18n="s3.t2">LoRa</span>
@@ -286,43 +285,6 @@ footer{background:var(--surface);border-top:1px solid var(--border-light);paddin
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- POR QUÉ AIDA -->
-<section class="sw gray" id="why">
-  <div class="section-eyebrow" data-i18n="wy.ey">Por qué AIDA</div>
-  <div class="why-grid">
-    <div>
-      <div class="why-statement" data-i18n-h="wy.st">La IA más poderosa es la que <em>no depende de nadie más.</em></div>
-      <p class="why-body" data-i18n="wy.b">Importamos, instalamos y configuramos todo. Tú empiezas a operar desde el primer día y pagas un costo mensual fijo mientras la solución funciona perfectamente — sin sorpresas, sin riesgo.</p>
-    </div>
-    <div class="why-points">
-      <div class="why-point">
-        <div class="why-icon">🏗️</div>
-        <div class="why-pt"><strong data-i18n="wy.1t">Costo mensual fijo</strong><span data-i18n="wy.1d">Sin licencias adicionales ni costos por feature. Un solo pago mensual que cubre todo.</span></div>
-      </div>
-      <div class="why-point">
-        <div class="why-icon">💳</div>
-        <div class="why-pt"><strong data-i18n="wy.2t">Tu información nunca sale de tu red</strong><span data-i18n="wy.2d">Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.</span></div>
-      </div>
-      <div class="why-point">
-        <div class="why-icon">🔒</div>
-        <div class="why-pt"><strong data-i18n="wy.3t">Tu información nunca sale de tu red</strong><span data-i18n="wy.3d">Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.</span></div>
-      </div>
-      <div class="why-point">
-        <div class="why-icon">📶</div>
-        <div class="why-pt"><strong data-i18n="wy.4t">Opera sin internet</strong><span data-i18n="wy.4d">Corte de fibra, falla del router — tus sistemas siguen funcionando sin interrupciones.</span></div>
-      </div>
-      <div class="why-point">
-        <div class="why-icon">🔋</div>
-        <div class="why-pt"><strong data-i18n="wy.5t">Resiliencia energética</strong><span data-i18n="wy.5d">Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de luz.</span></div>
-      </div>
-      <div class="why-point">
-        <div class="why-icon">🛠️</div>
-        <div class="why-pt"><strong data-i18n="wy.6t">Hardware, garantía y soporte incluidos</strong><span data-i18n="wy.6d">Vida útil, actualizaciones y soporte técnico presencial son responsabilidad de AIDA.</span></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -385,13 +347,9 @@ es:{
   'hero.h1':'Automatización inteligente, <em>bajo tu control.</em>',
   'hero.sub':'AIDA despliega sistemas de inteligencia artificial que trabajan por ti — en tu infraestructura, sin nubes ajenas.',
   'hero.c1':'Habla con un especialista','hero.c2':'Ver soluciones',
-  'ab.ey':'Quiénes somos','ab.t':'AIDA — AI Deployment Analytics',
-  'ab.p1':'Somos una empresa especializada en el despliegue de inteligencia artificial aplicada. Diseñamos, desarrollamos e implementamos sistemas de IA que automatizan procesos reales en empresas reales.',
-  'ab.p2':'Toda nuestra tecnología corre localmente en tu infraestructura. Tu información nunca sale de tu red, el sistema funciona sin internet y sigue operando aunque se vaya la luz.',
-  'ab.p1t':'Edge AI — sin nubes ajenas','ab.p1d':'La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.',
-  'ab.p2t':'Edge AI — sin nubes ajenas','ab.p2d':'La más alta configuración de seguridad de la información. Ningún dato sale de tu infraestructura.',
-  'ab.p3t':'Máxima velocidad, sin latencia','ab.p3d':'Al procesar localmente, la respuesta es inmediata. Sin depender de servidores remotos ni de la velocidad del internet.',
-  'ab.p4t':'Opera sin internet ni electricidad','ab.p4d':'Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de red o energía.',
+  'ab.ey':'Quiénes somos · Por qué AIDA',
+  'ab.p1':'Somos una empresa especializada en el despliegue de inteligencia artificial aplicada. Diseñamos, desarrollamos e implementamos sistemas de IA que automatizan procesos reales en empresas reales — toda nuestra tecnología corre localmente en tu infraestructura, sin nubes ajenas.',
+
   'sl.ey':'Soluciones','sl.t':'IA que hace trabajo real.',
   'sl.sub':'Tres herramientas de automatización, todas corriendo localmente en tu infraestructura y configuradas a la medida de tu operación.',
   's1.t':'Visión por Computadora','s1.d':'AIDA construye AI NVRs hechos a la medida que se integran con agentes que automatizan trabajo real. Funcionan en tu red local y continúan operando a pesar de interrupciones en internet. Con equipos de alta eficiencia energética para facilitar respaldo eléctrico — la seguridad no para, tu operación no para, el trabajo continúa. Desde 1 cámara que clasifique y cuente ítems en una línea de producción, detección de velocidad, proximidad, realidad aumentada, y mucho más.',
@@ -400,14 +358,13 @@ es:{
   's2.t1':'RPA','s2.t2':'Documentos','s2.t3':'Flujos','s2.t4':'LLM local',
   's3.t':'AIoT','s3.d':'Conectamos sensores, actuadores y el mundo físico con un agente de IA que interpreta datos y toma decisiones autónomas. Combustible, agua, energía, logística y líneas de producción — sin costo de datos celulares.',
   's3.t1':'Sensores','s3.t2':'LoRa','s3.t3':'Visión Industrial','s3.t4':'Automatización',
-  'wy.ey':'Por qué AIDA','wy.st':'La IA más poderosa es la que <em>no depende de nadie más.</em>',
-  'wy.b':'Importamos, instalamos y configuramos todo. Tú empiezas a operar desde el primer día y pagas un costo mensual fijo mientras la solución funciona perfectamente — sin sorpresas, sin riesgo.',
-  'wy.1t':'Costo mensual fijo','wy.1d':'Sin licencias adicionales ni costos por feature. Un solo pago mensual que cubre todo.',
-  'wy.2t':'Tu información nunca sale de tu red','wy.2d':'Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.',
-  'wy.3t':'Tu información nunca sale de tu red','wy.3d':'Edge AI 100% local. La más alta configuración de seguridad de la información en aplicaciones de IA.',
-  'wy.4t':'Opera sin internet','wy.4d':'Corte de fibra, falla del router — tus sistemas siguen funcionando sin interrupciones.',
-  'wy.5t':'Resiliencia energética','wy.5d':'Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de luz.',
-  'wy.6t':'Hardware, garantía y soporte incluidos','wy.6d':'Vida útil, actualizaciones y soporte técnico presencial son responsabilidad de AIDA.',
+  'wy.st2':'La IA más poderosa es la que no depende de nadie más.','wy.ey':'Por qué AIDA','wy.st':'La IA más poderosa es la que <em>no depende de nadie más.</em>',
+  'wy.b':'Importamos, instalamos y configuramos todo. Tú empiezas a operar desde el primer día.',
+  'wy.1t':'Edge AI — sin nubes ajenas','wy.1d':'Todo el procesamiento ocurre en tu infraestructura. La más alta configuración de seguridad de la información — ningún dato sale de tu red.',
+  'wy.2t':'Máxima velocidad, sin latencia','wy.2d':'Al procesar localmente, la respuesta es inmediata. Sin esperar servidores remotos ni depender del internet.',
+  'wy.3t':'Funciona sin internet','wy.3d':'Corte de fibra, falla del router — tus sistemas siguen funcionando sin interrupciones.',
+  'wy.4t':'Resiliencia energética','wy.4d':'Soluciones de bajo consumo respaldadas por UPS. Tu operación no se detiene por cortes de luz.',
+  'wy.5t':'Hardware, garantía y soporte incluidos','wy.5d':'Vida útil, actualizaciones y soporte técnico presencial son responsabilidad de AIDA.',
   'cta.t':'¿Listo para automatizar tu operación?','cta.sub':'Cuéntanos qué proceso quieres automatizar y te mostramos cómo hacerlo.','cta.btn':'Habla con un especialista',
   'ct.ey':'Contacto','ct.t':'Hablemos de tu proyecto.',
   'ct.sub':'Cada solución empieza con una conversación. Cuéntanos qué proceso quieres automatizar o qué problema necesitas resolver — te respondemos el mismo día.',
@@ -419,13 +376,9 @@ en:{
   'hero.h1':'Intelligent automation, <em>under your control.</em>',
   'hero.sub':'AIDA deploys AI systems that work for you — in your infrastructure, without third-party clouds.',
   'hero.c1':'Talk to a specialist','hero.c2':'See solutions',
-  'ab.ey':'Who we are','ab.t':'AIDA — AI Deployment Analytics',
-  'ab.p1':'We are a company specialized in applied AI deployment. We design, develop and implement AI systems that automate real processes in real companies.',
-  'ab.p2':'All our technology runs locally in your infrastructure. Your data never leaves your network, the system works without internet and keeps operating even during power outages.',
-  'ab.p1t':'Zero upfront investment','ab.p1d':'AIDA imports, installs and configures everything. The client starts operating without spending on hardware or software.',
-  'ab.p2t':'Edge AI — no third-party clouds','ab.p2d':'The highest information security configuration. No data ever leaves your infrastructure.',
-  'ab.p3t':'Maximum speed, zero latency','ab.p3d':'Processing locally means instant response. No dependence on remote servers or internet speed.',
-  'ab.p4t':'Works without internet or electricity','ab.p4d':'Low-power solutions backed by UPS. Your operation never stops due to network or power outages.',
+  'ab.ey':'Who we are · Why AIDA',
+  'ab.p1':'We are a company specialized in applied AI deployment. We design, develop and implement AI systems that automate real processes in real companies — all our technology runs locally in your infrastructure, without third-party clouds.',
+
   'sl.ey':'Solutions','sl.t':'AI that does real work.',
   'sl.sub':'Three automation tools, all running locally in your infrastructure and configured to fit your specific operation.',
   's1.t':'Computer Vision','s1.d':'AIDA builds custom AI NVRs that integrate with agents automating real work. They run on your local network and keep operating despite internet outages. Built with high energy efficiency hardware for easy power backup — security never stops, your operation never stops, work continues. From a single camera that classifies and counts items on a production line, to speed detection, proximity sensing, augmented reality, and much more.',
@@ -434,8 +387,8 @@ en:{
   's2.t1':'RPA','s2.t2':'Documents','s2.t3':'Workflows','s2.t4':'Local LLM',
   's3.t':'AIoT','s3.d':'We connect sensors, actuators and the physical world with an AI agent that interprets data and makes autonomous decisions. Fuel, water, energy, logistics and production lines — at zero cellular data cost.',
   's3.t1':'Sensors','s3.t2':'LoRa','s3.t3':'Industrial Vision','s3.t4':'Automation',
-  'wy.ey':'Why AIDA','wy.st':'The most powerful AI is the one that <em>depends on no one else.</em>',
-  'wy.b':'We import, install and configure everything. You start operating from day one and pay a fixed monthly fee while the solution works perfectly — no surprises, no risk.',
+  'wy.st2':'The most powerful AI is the one that depends on no one else.','wy.ey':'Why AIDA','wy.st':'The most powerful AI is the one that <em>depends on no one else.</em>',
+  'wy.b':'We import, install and configure everything. You start operating from day one.',
   'wy.1t':'Fixed monthly cost','wy.1d':'No additional licenses or per-feature costs. One monthly payment that covers everything.',
   'wy.2t':'Your data never leaves your network','wy.2d':'100% local Edge AI. The highest information security configuration in AI-powered applications.',
   'wy.3t':'Your data never leaves your network','wy.3d':'100% local Edge AI. The highest information security configuration in AI-powered applications.',
