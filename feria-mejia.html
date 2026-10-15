@@ -104,7 +104,7 @@ h1{
 .stats-inner{
   max-width:980px;margin:0 auto;
   padding:0 clamp(1.25rem,5vw,2.5rem);
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(3,1fr);
 }
 .stat{
   padding:1.5rem 0;
@@ -274,8 +274,7 @@ footer a{color:var(--accent);text-decoration:none;font-size:12px;}
   .drone-svg{max-width:280px;}
   .stats-inner{grid-template-columns:repeat(2,1fr);}
   .stat:nth-child(2){border-right:none;}
-  .stat:nth-child(3){border-top:1px solid var(--border);}
-  .stat:nth-child(4){border-top:1px solid var(--border);border-right:none;}
+  .stat:nth-child(3){border-top:1px solid var(--border);border-right:none;}
   .form-section{grid-template-columns:1fr;}
   .form-card{position:static;border-radius:var(--r);}
 }
@@ -285,6 +284,66 @@ footer a{color:var(--accent);text-decoration:none;font-size:12px;}
   .stat{padding:1.25rem 1rem;}
   .stat-val{font-size:1.25rem;}
   .field-input,.field-select,.submit-btn{font-size:16px;}/* prevents iOS zoom */
+}
+
+/* ── DRONE INTERACTIVO ── */
+#droneWrap{
+  cursor:pointer;
+  position:relative;
+  transition:filter 0.2s;
+  -webkit-user-select:none;user-select:none;
+}
+#droneWrap:hover{filter:drop-shadow(0 8px 24px rgba(0,113,227,0.18));}
+#droneWrap:active{transform:scale(0.97) translateY(-2px);}
+
+/* Halo de escaneo (aparece al tocar) */
+#scanHalo{
+  position:absolute;
+  bottom:-10px;left:50%;transform:translateX(-50%);
+  width:120px;height:120px;
+  border-radius:50%;
+  border:2px solid rgba(0,113,227,0.5);
+  opacity:0;pointer-events:none;
+}
+/* Tooltip hint */
+#droneTip{
+  position:absolute;
+  top:-36px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,0.7);
+  color:#fff;font-size:11px;font-weight:500;
+  padding:5px 12px;border-radius:20px;
+  white-space:nowrap;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.3s;
+  letter-spacing:0.02em;
+}
+#droneWrap:hover #droneTip{opacity:1;}
+
+/* Propellers spin overlay (JS-controlled) */
+.prop-spin{
+  transform-origin:center;
+  animation:none;
+}
+.prop-spin.active{
+  animation:propSpin 0.15s linear infinite;
+}
+@keyframes propSpin{
+  to{transform:rotate(360deg);}
+}
+
+/* Shake animation */
+@keyframes droneShake{
+  0%{transform:translateY(0) rotate(0deg);}
+  15%{transform:translateY(-18px) rotate(-4deg);}
+  30%{transform:translateY(-24px) rotate(3deg);}
+  45%{transform:translateY(-18px) rotate(-2deg);}
+  60%{transform:translateY(-10px) rotate(1deg);}
+  80%{transform:translateY(-4px) rotate(0deg);}
+  100%{transform:translateY(0) rotate(0deg);}
+}
+@keyframes scanPulse{
+  0%{opacity:0.8;width:30px;height:30px;bottom:-5px;}
+  100%{opacity:0;width:180px;height:180px;bottom:-80px;}
 }
 </style>
 </head>
@@ -304,15 +363,17 @@ footer a{color:var(--accent);text-decoration:none;font-size:12px;}
     <div class="hero-text">
       <div class="hero-kicker">
         <span class="hero-kicker-dot"></span>
-        Centro Agrícola de Mejía · 18–19 Oct 2026
+        Centro Agrícola de Mejía · 16, 17 y 18 Oct 2026
       </div>
       <h1>Drones para el campo ecuatoriano.</h1>
       <p class="hero-sub">Tecnología real para agricultores y ganaderos. Regístrese, descubra cómo los drones transforman su operación y participe en el sorteo de premios.</p>
       <div class="sorteo-chip">🎁 &nbsp;Su registro participa en el sorteo</div>
     </div>
     <div class="hero-visual">
-      <div class="drone-wrap">
-        <svg class="drone-svg" viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div class="drone-wrap" id="droneWrap" title="Tóqueme" style="position:relative;">
+        <div id="droneTip">✦ Tóqueme</div>
+        <div id="scanHalo"></div>
+        <svg class="drone-svg" id="droneSVG" viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Shadow under drone -->
           <ellipse cx="230" cy="330" rx="90" ry="8" fill="rgba(0,0,0,0.06)"/>
           <!-- Arms -->
@@ -321,10 +382,10 @@ footer a{color:var(--accent);text-decoration:none;font-size:12px;}
           <line x1="230" y1="170" x2="68" y2="258" stroke="#D0D0D5" stroke-width="3" stroke-linecap="round"/>
           <line x1="230" y1="170" x2="392" y2="258" stroke="#D0D0D5" stroke-width="3" stroke-linecap="round"/>
           <!-- Prop discs -->
-          <ellipse cx="68" cy="82" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2"/>
-          <ellipse cx="392" cy="82" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2"/>
-          <ellipse cx="68" cy="258" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2"/>
-          <ellipse cx="392" cy="258" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2"/>
+          <ellipse id="p1" cx="68" cy="82" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2" style="transform-origin:68px 82px;"/>
+          <ellipse id="p2" cx="392" cy="82" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2" style="transform-origin:392px 82px;"/>
+          <ellipse id="p3" cx="68" cy="258" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2" style="transform-origin:68px 258px;"/>
+          <ellipse id="p4" cx="392" cy="258" rx="50" ry="7" fill="rgba(0,113,227,0.06)" stroke="rgba(0,113,227,0.2)" stroke-width="1.2" style="transform-origin:392px 258px;"/>
           <!-- Motor housings -->
           <circle cx="68" cy="82" r="18" fill="#F5F5F7" stroke="#D0D0D5" stroke-width="1.5"/>
           <circle cx="392" cy="82" r="18" fill="#F5F5F7" stroke="#D0D0D5" stroke-width="1.5"/>
@@ -367,8 +428,7 @@ footer a{color:var(--accent);text-decoration:none;font-size:12px;}
 <div class="stats">
   <div class="stats-inner">
     <div class="stat"><div class="stat-val">DJI</div><div class="stat-key">Academy Partner</div></div>
-    <div class="stat"><div class="stat-val">18–19</div><div class="stat-key">Octubre 2026</div></div>
-    <div class="stat"><div class="stat-val">+5</div><div class="stat-key">Tecnologías en demo</div></div>
+    <div class="stat"><div class="stat-val" style="font-size:1.1rem;">16, 17 y 18</div><div class="stat-key">Octubre 2026</div></div>
     <div class="stat"><div class="stat-val">🎁</div><div class="stat-key">Sorteo de premios</div></div>
   </div>
 </div>
@@ -387,6 +447,11 @@ footer a{color:var(--accent);text-decoration:none;font-size:12px;}
         <span class="ac-badge">DJI Academy</span>
       </div>
       <p class="ac-desc">Empresa ecuatoriana especializada en soluciones con drones para agricultura, ganadería, minería y construcción. Centro de capacitación DJI autorizado.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;">
+        <span style="font-size:11px;font-weight:500;color:var(--accent);background:rgba(0,113,227,0.08);padding:4px 10px;border-radius:20px;">Visión por computadora</span>
+        <span style="font-size:11px;font-weight:500;color:var(--accent);background:rgba(0,113,227,0.08);padding:4px 10px;border-radius:20px;">IoT industrial</span>
+        <span style="font-size:11px;font-weight:500;color:var(--accent);background:rgba(0,113,227,0.08);padding:4px 10px;border-radius:20px;">Agentes de automatización</span>
+      </div>
     </div>
   </div>
 
@@ -573,6 +638,112 @@ function watchSel(selId, otherId){
 watchSel('sectorSel','sectorOther');
 watchSel('tecSel','tecOther');
 watchSel('retoSel','retoOther');
+
+/* ── DRONE INTERACTIVO ── */
+const droneWrap = document.getElementById('droneWrap');
+const props = ['p1','p2','p3','p4'].map(id => document.getElementById(id));
+const scanHalo = document.getElementById('scanHalo');
+let droneActive = false;
+let propAngle = 0;
+let propRAF = null;
+let motorNode = null;
+
+function spinProps(fast){
+  if(propRAF) cancelAnimationFrame(propRAF);
+  const speed = fast ? 18 : 4;
+  function tick(){
+    propAngle = (propAngle + speed) % 360;
+    props.forEach(p => { if(p) p.style.transform = `rotate(${propAngle}deg)`; });
+    propRAF = requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+function stopProps(){
+  if(propRAF){ cancelAnimationFrame(propRAF); propRAF = null; }
+  // decelerate
+  let angle = propAngle, spd = 6;
+  function decel(){
+    if(spd < 0.3){ props.forEach(p=>{ if(p) p.style.transform=''; }); return; }
+    angle = (angle + spd) % 360;
+    props.forEach(p=>{ if(p) p.style.transform=`rotate(${angle}deg)`; });
+    spd *= 0.93;
+    requestAnimationFrame(decel);
+  }
+  decel();
+}
+
+function playMotor(start){
+  try{
+    const c = getCtx();
+    if(start){
+      if(motorNode) try{ motorNode.stop(); }catch(e){}
+      // Motor: noise filtered to a buzz
+      const buf = c.createBuffer(1, c.sampleRate * 2, c.sampleRate);
+      const data = buf.getChannelData(0);
+      for(let i=0;i<data.length;i++) data[i] = (Math.random()*2-1);
+      const src = c.createBufferSource();
+      src.buffer = buf; src.loop = true;
+      const bpf = c.createBiquadFilter();
+      bpf.type = 'bandpass'; bpf.frequency.value = 120; bpf.Q.value = 0.8;
+      const g = c.createGain(); g.gain.setValueAtTime(0,c.currentTime);
+      g.gain.linearRampToValueAtTime(0.08, c.currentTime+0.15);
+      src.connect(bpf); bpf.connect(g); g.connect(c.destination);
+      src.start();
+      motorNode = {stop:()=>{ g.gain.linearRampToValueAtTime(0,c.currentTime+0.3); setTimeout(()=>{ try{src.stop();}catch(e){} },400); }};
+    } else {
+      if(motorNode){ motorNode.stop(); motorNode=null; }
+    }
+  }catch(e){}
+}
+
+function droneActivate(){
+  if(droneActive) return;
+  droneActive = true;
+
+  // 1. Spin props fast
+  spinProps(true);
+
+  // 2. Motor sound
+  playMotor(true);
+
+  // 3. Shake animation
+  droneWrap.style.animation = 'none';
+  droneWrap.offsetHeight; // reflow
+  droneWrap.style.animation = 'droneShake 0.9s ease forwards';
+
+  // 4. Halo scan pulse
+  scanHalo.style.cssText = 'opacity:0.8;width:30px;height:30px;bottom:-5px;left:50%;transform:translateX(-50%);position:absolute;border-radius:50%;border:2px solid rgba(0,113,227,0.6);transition:none;pointer-events:none;';
+  requestAnimationFrame(()=>{
+    scanHalo.style.transition = 'all 0.9s ease-out';
+    scanHalo.style.opacity = '0';
+    scanHalo.style.width = '200px';
+    scanHalo.style.height = '200px';
+    scanHalo.style.bottom = '-100px';
+  });
+
+  // 5. LEDs flicker blue
+  ['68','392'].forEach(cx=>{
+    const el = document.querySelector(`circle[cx="${cx}"][cy="82"]`);
+    if(el){ el.style.fill='#00CFFF'; el.style.opacity='1'; }
+  });
+
+  // 6. After 1.8s — decelerate & restore
+  setTimeout(()=>{
+    droneWrap.style.animation = 'float 5s ease-in-out infinite';
+    playMotor(false);
+    stopProps();
+    // restore LEDs
+    ['68','392'].forEach(cx=>{
+      const el = document.querySelector(`circle[cx="${cx}"][cy="82"]`);
+      if(el){ el.style.fill='#0071E3'; el.style.opacity=''; }
+    });
+    droneActive = false;
+  }, 1800);
+}
+
+droneWrap.addEventListener('click', droneActivate);
+droneWrap.addEventListener('touchstart', e=>{ e.preventDefault(); droneActivate(); }, {passive:false});
 
 /* ── Form submit ── */
 const form = document.getElementById('regForm');
